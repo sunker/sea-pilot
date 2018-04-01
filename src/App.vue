@@ -1,0 +1,306 @@
+<template>
+  <v-app light>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+  </v-app>
+</template>
+
+<script>
+import Vue from 'vue'
+import coordinates from '../testCoordinates.json'
+
+export default {
+  data() {
+    return {
+      cordova: Vue.cordova,
+      counter: 0,
+    }
+  },
+  mounted: function() {
+    let self = this
+    setInterval(function() {
+      if (self.counter === 472) self.counter = 0
+      const coords = coordinates.gpx.wpt[self.counter]
+      self.counter++
+      const timestamp = new Date()
+      timestamp.setSeconds(timestamp.getSeconds() + 15)
+      const currentCoord = {
+        lng: Number(coords.long),
+        lat: Number(coords.lat),
+        timestamp: timestamp.getTime(),
+      }
+      self.$store.commit('setCoordinates', currentCoord)
+    }, 1000)
+  },
+  created() {
+    var self = this
+    this.cordova.on('deviceready', () => {
+      self.onDeviceReady()
+    })
+  },
+  methods: {
+    onDeviceReady: function() {
+      // Handle the device ready event.
+      this.cordova.on('pause', this.onPause, false)
+      this.cordova.on('resume', this.onResume, false)
+      if (this.cordova.device.platform === 'Android') {
+        document.addEventListener('backbutton', this.onBackKeyDown, false)
+      }
+
+      function onScan(peripheral) {
+        // this is demo code, assume there is only one heart rate monitor
+        console.log('Found ' + JSON.stringify(peripheral))
+        // let foundHeartRateMonitor = true
+
+        ble.connect(
+          peripheral.id,
+          peripheral => {
+            // app.status('Connected to ' + peripheral.id)
+            ble.startNotification(
+              peripheral.id,
+              'ff51b30e-d7e2-4d93-8842-a7c4a57dfb07', // heartRate.service,
+              'heartRate.measurement',
+              app.onData,
+              app.onError
+            )
+          }
+          // app.onDisconnect
+        )
+      }
+
+      function scanFailure(reason) {
+        alert('BLE Scan Failed')
+      }
+
+      ble.scan(
+        ['ff51b30e-d7e2-4d93-8842-a7c4a57dfb07'],
+        20,
+        onScan,
+        scanFailure
+      )
+    },
+    onPause() {
+      // Handle the pause lifecycle event.
+      console.log('pause')
+    },
+    onResume() {
+      // Handle the resume lifecycle event.
+      // SetTimeout required for iOS.
+      setTimeout(function() {
+        console.log('resume')
+      }, 0)
+    },
+    onBackKeyDown() {
+      // Handle the back-button event on Android. By default it will exit the app.
+      navigator.app.exitApp()
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+body {
+  font-family: 'helvetica';
+}
+
+.container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+.logo {
+  // background: url('../../../images/logo.jpg') no-repeat;
+  width: 330px;
+  height: 49px;
+  display: block;
+  text-indent: -9999px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.date-text {
+}
+
+.vcenter strong {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.text-large {
+  font-size: 1.5em;
+}
+
+.vertical-align-outer {
+  line-height: 125px;
+}
+
+.vertical-align-inner {
+  // display: inline-block;
+  vertical-align: middle;
+}
+
+.widget-row {
+  .widget-wrapper {
+    height: 125px;
+  }
+  border-bottom: 1px solid #eee;
+  &.first {
+    border-top: 1px solid #eee;
+  }
+  .widget {
+    padding: 10px;
+    // height: 180px;
+    &.first {
+      border-right: 1px solid #eee;
+    }
+  }
+  .widget:nth-child(2) {
+    // border-left: 1px solid #eee;
+    height: 100%;
+  }
+}
+
+.chart-map {
+  position: relative;
+  z-index: 9998;
+  .btn:focus {
+    outline: none;
+  }
+  .chart-buttons {
+    position: absolute;
+    right: 5px;
+    bottom: 15px;
+    button {
+      background: none;
+    }
+  }
+  .chart-zoom-buttons {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    button {
+      background: none;
+    }
+  }
+  .chart-center-buttons {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    button {
+      background: none;
+    }
+  }
+  .e-map {
+    z-index: -1 !important;
+  }
+
+  .e-logo,
+  .e-maptypes {
+    display: none;
+  }
+}
+
+.table-journey {
+  border-style: none;
+  margin-bottom: 0;
+  table-layout: fixed;
+  td {
+    border-style: none !important;
+    max-width: 33%;
+  }
+  dt {
+    font-weight: inherit;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  dd {
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    &.dd-small {
+      font-size: 14px;
+      margin-top: 3px;
+    }
+  }
+  dl {
+    &.dl-tight {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.table-forecasts {
+  border-style: none;
+  th {
+    font-size: 10px;
+    padding-left: 0;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  td {
+    font-size: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.man-overboard-wrapper {
+  margin-bottom: 10px;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.btn-xlarge {
+  padding: 16px 26px;
+  font-size: 22px; //change this to your desired size
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+.btn-xlarge-round {
+  padding: 18px 22px;
+  font-size: 26px; //change this to your desired size
+  line-height: normal;
+  -webkit-border-radius: 36px;
+  -moz-border-radius: 36px;
+  border-radius: 36px;
+}
+
+.dashboard-link,
+.dashboard-link:hover {
+  color: inherit;
+}
+
+@media only screen and (max-device-width: 500px) {
+  .weather-image {
+    width: 100px;
+    height: 100px;
+  }
+  .responsive-text {
+    font-size: 0.8em !important;
+  }
+  .chart-zoom-buttons {
+    display: none !important;
+  }
+}
+</style>
+
