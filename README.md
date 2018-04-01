@@ -1,4 +1,3 @@
-# sea-pilot
 
 > App dashboard for boat stuff
 
