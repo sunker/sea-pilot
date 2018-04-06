@@ -8,6 +8,7 @@
 
 <script>
 import Vue from 'vue'
+import { TextDecoder } from 'text-encoding'
 import coordinates from '../testCoordinates.json'
 
 export default {
@@ -19,6 +20,10 @@ export default {
   },
   mounted: function() {
     let self = this
+    const journey = localStorage.getItem('journey')
+    if (journey) {
+      self.$store.commit('loadJourney', JSON.parse(journey))
+    }
     setInterval(function() {
       if (self.counter === 472) self.counter = 0
       const coords = coordinates.gpx.wpt[self.counter]
@@ -28,53 +33,64 @@ export default {
       const currentCoord = {
         lng: Number(coords.long),
         lat: Number(coords.lat),
-        timestamp: timestamp.getTime(),
+        time: timestamp.getTime(),
+        speed: 3,
       }
       self.$store.commit('setCoordinates', currentCoord)
-    }, 1000)
+    }, 1500)
   },
   created() {
     var self = this
     this.cordova.on('deviceready', () => {
+      console.log('deviceready')
       self.onDeviceReady()
     })
   },
   methods: {
     onDeviceReady: function() {
+      let self = this
       // Handle the device ready event.
       this.cordova.on('pause', this.onPause, false)
       this.cordova.on('resume', this.onResume, false)
       if (this.cordova.device.platform === 'Android') {
         document.addEventListener('backbutton', this.onBackKeyDown, false)
       }
+      console.log('Deviceready')
 
       function onScan(peripheral) {
-        // this is demo code, assume there is only one heart rate monitor
         console.log('Found ' + JSON.stringify(peripheral))
-        // let foundHeartRateMonitor = true
-
-        ble.connect(
-          peripheral.id,
-          peripheral => {
-            // app.status('Connected to ' + peripheral.id)
-            ble.startNotification(
-              peripheral.id,
-              'ff51b30e-d7e2-4d93-8842-a7c4a57dfb07', // heartRate.service,
-              'heartRate.measurement',
-              app.onData,
-              app.onError
-            )
-          }
-          // app.onDisconnect
-        )
+        ble.connect(peripheral.id, peripheral => {
+          console.log('Connected to ' + peripheral.id)
+          console.log(peripheral)
+          ble.startNotification(
+            peripheral.id,
+            peripheral.services[0],
+            '00010001-9FAB-43C8-9231-40F6E305F96E',
+            function(data) {
+              var string = new TextDecoder('utf-8').decode(data)
+              const [longitude, latitude, timestamp, speed] = string.split(';')
+              // console.log('Data:' + longitude, latitude, timestamp, speed)
+              const currentCoord = {
+                lng: Number(longitude),
+                lat: Number(latitude),
+                time: Number(timestamp),
+                speed: Number(speed),
+              }
+              self.$store.commit('setCoordinates', currentCoord)
+            },
+            function(failure) {
+              console.log('Failed to read characteristic from device.', failure)
+            }
+          )
+        })
       }
 
       function scanFailure(reason) {
-        alert('BLE Scan Failed')
+        console.log('BLE Scan Failed', reason)
       }
-
+      console.log('Scan')
       ble.scan(
-        ['ff51b30e-d7e2-4d93-8842-a7c4a57dfb07'],
+        ['00010000-9FAB-43C8-9231-40F6E305F96D'],
         20,
         onScan,
         scanFailure
@@ -202,7 +218,6 @@ body {
   .e-map {
     z-index: -1 !important;
   }
-
   .e-logo,
   .e-maptypes {
     display: none;

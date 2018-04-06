@@ -22,11 +22,11 @@
               </v-card>
             </v-flex>
 
-            <v-flex xs12 @click="navigate('ChartView')">
+            <v-flex xs12 @click="navigate('chart')">
               <v-card>
                 <v-card-media height="200px">
                   <v-container fill-height fluid>
-                    <chart></chart>
+                    <chart :display-zoom="false"></chart>
                   </v-container>
                 </v-card-media>
               </v-card>
@@ -62,7 +62,7 @@
     }),
     methods: {
       navigate(route) {
-        this.$router.push('ChartView')
+        this.$router.push(route)
       }
     },
     components: { Chart },

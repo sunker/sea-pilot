@@ -8,19 +8,25 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": ""
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": ""
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     },
     "cordova-plugin-ble-central": {
       "BLUETOOTH_USAGE_DESCRIPTION": " ",
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-compat": {
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     }
   }
 }

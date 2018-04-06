@@ -1,6 +1,6 @@
 {
-  "name": "sea-pilot",
-  "short_name": "sea-pilot",
+  "name": "sea-pilot-app",
+  "short_name": "sea-pilot-app",
   "icons": [
     {
       "src": "img/icons/android-chrome-192x192.png",

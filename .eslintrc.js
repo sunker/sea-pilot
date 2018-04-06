@@ -28,6 +28,7 @@ module.exports = {
     'indent': 0,
     'one-var': 0,
     'comma-dangle': 0,
+    'no-return-assign': 0,
     'space-before-function-paren': 0,
     // allow async-await
     'generator-star-spacing': 0,

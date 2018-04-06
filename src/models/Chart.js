@@ -22,9 +22,6 @@ export default class Chart {
         focus: true
       })
 
-      // $rootScope.$broadcast('mapInitialized');s
-
-      // var coord = geoService.getCurrentCoordinate()
       let coord = { lat: 59.334591, lng: 18.06324 }
       map.panTo(new eniro.maps.LatLng(coord.lat, coord.lng))
 
@@ -43,7 +40,7 @@ export default class Chart {
     } catch (ex) {
       return false
     }
-  };
+  }
 
   setPositionMarker (lat, lng) {
     if (journeyMode) {
@@ -55,21 +52,21 @@ export default class Chart {
     if (autoFocus) {
       map.panTo(new eniro.maps.LatLng(lat, lng))
     }
-  };
+  }
 
   panTo (lat, lng) {
     map.panTo(new eniro.maps.LatLng(lat, lng))
-  };
+  }
 
   zoomIn () {
     var zoomLevel = map.getZoom()
     map.setZoom(--zoomLevel)
-  };
+  }
 
   zoomOut () {
     var zoomLevel = map.getZoom()
     map.setZoom(++zoomLevel)
-  };
+  }
 
   stopJourney () {
     journeyMode = false
@@ -85,33 +82,40 @@ export default class Chart {
       redMarker.setVisible(false)
     })
     redMarkers = []
-  };
+  }
 
-  loadJourney (data) {
+  startNewJourney () {
     journeyMode = true
     marker.setVisible(false)
-    map.setZoom(data.zoom_level)
     linePath = new eniro.maps.MapArray()
-    for (var i = 0; i < data.coordinates.length; i++) {
-      var coordinate = data.coordinates[i]
-      if (coordinate.is_MOB) {
-        this.addRedMarker({
-          lat: coordinate.latitude,
-          lng: coordinate.longitude
-        })
+    line = new eniro.maps.Polyline({
+      map: map,
+      path: linePath
+    })
+  }
+
+  loadJourney (coordinates, zoomLevel) {
+    journeyMode = true
+    marker.setVisible(false)
+    map.setZoom(zoomLevel)
+    linePath = new eniro.maps.MapArray()
+    for (var i = 0; i < coordinates.length; i++) {
+      const { lat, lng, isMob } = coordinates[i]
+      if (isMob) {
+        this.addRedMarker({ lat, lng })
       }
-      linePath.push(new eniro.maps.LatLng(coordinate.latitude, coordinate.longitude))
+      linePath.push(new eniro.maps.LatLng(lat, lng))
     }
     line = new eniro.maps.Polyline({
       map: map,
       path: linePath
     })
-  };
+  }
 
   setAutoFocus (focus) {
     autoFocus = focus
     console.log('Autofocus: ' + focus)
-  };
+  }
 
   addRedMarker (coordinate) {
     var redMarker = new eniro.maps.Marker({
@@ -121,11 +125,11 @@ export default class Chart {
     })
     redMarker.setPosition(new eniro.maps.LatLng(coordinate.lat, coordinate.lng))
     redMarkers.push(redMarker)
-  };
+  }
 
   onClick (callback) {
     eniro.maps.event.addListener(map, 'click', callback)
-  };
+  }
 
   onZoomChange (callback) {
     eniro.maps.event.addListener(map, 'zoom_changed', function () {
@@ -133,5 +137,5 @@ export default class Chart {
         zoomLevel: map.getZoom()
       })
     })
-  };
+  }
 }

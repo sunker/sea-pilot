@@ -1,5 +1,6 @@
+# sea-pilot-app
 
-> App dashboard for boat stuff
+> A Vue.js project
 
 ## Build Setup
 
