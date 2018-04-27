@@ -37,12 +37,14 @@
 <script>
 import Chart from '../models/Chart'
 import { mapGetters, mapState } from 'vuex'
+import bus from '../Bus'
 
 export default {
   mounted: function() {
     this.chart = new Chart(document.querySelector('.chart-map'))
     this.initialized = true
     this.chart.onClick(e => this.chart.setAutoFocus(false))
+    this.chart.onClick(e => bus.$emit('mapClicked'))
   },
   props: ['displayZoom', 'height'],
   computed: {
