@@ -7,7 +7,7 @@ let map,
   autoFocus = true
 
 export default class Chart {
-  constructor(parentDiv) {
+  constructor(parentDiv, coord) {
     try {
       if (map) {
         eniro.maps.event.clearListeners(map, 'click')
@@ -22,7 +22,7 @@ export default class Chart {
         focus: true
       })
 
-      let coord = { lat: 59.334591, lng: 18.06324 }
+      coord = coord || { lat: 59.334591, lng: 18.06324 }
       map.panTo(new eniro.maps.LatLng(coord.lat, coord.lng))
 
       if (journeyMode) {

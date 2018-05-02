@@ -22,7 +22,7 @@ export default new Vuex.Store({
       if (state.coordinates.length === 1 && state.coordinates[0].defaultCoord === true) {
         state.coordinates.shift()
       }
-      state.coordinates.unshift({ lat, lng, time, speed: speed || 3 })
+      state.coordinates.unshift({ lat, lng, time, speed: speed || 0 })
       if (state.journeyMode) {
         let storedCoordinates = JSON.parse(localStorage.getItem('journey'))
         storedCoordinates.push({ lat, lng, time, speed })

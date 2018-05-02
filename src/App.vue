@@ -9,7 +9,7 @@
 <script>
 import Vue from 'vue'
 import { TextDecoder } from 'text-encoding'
-import coordinates from '../testCoordinates.json'
+// import coordinates from '../testCoordinates.json'
 
 export default {
   data() {
@@ -24,20 +24,20 @@ export default {
     if (journey) {
       self.$store.commit('loadJourney', JSON.parse(journey))
     }
-    setInterval(function() {
-      if (self.counter === 472) self.counter = 0
-      const coords = coordinates.gpx.wpt[self.counter]
-      self.counter++
-      const timestamp = new Date()
-      timestamp.setSeconds(timestamp.getSeconds() + 15)
-      const currentCoord = {
-        lng: Number(coords.long),
-        lat: Number(coords.lat),
-        time: timestamp.getTime(),
-        speed: 3,
-      }
-      self.$store.commit('setCoordinates', currentCoord)
-    }, 1500)
+    // setInterval(function() {
+    //   if (self.counter === 472) self.counter = 0
+    //   const coords = coordinates.gpx.wpt[self.counter]
+    //   self.counter++
+    //   const timestamp = new Date()
+    //   timestamp.setSeconds(timestamp.getSeconds() + 15)
+    //   const currentCoord = {
+    //     lng: Number(coords.long),
+    //     lat: Number(coords.lat),
+    //     time: timestamp.getTime(),
+    //     speed: 3,
+    //   }
+    //   self.$store.commit('setCoordinates', currentCoord)
+    // }, 1500)
   },
   created() {
     var self = this
@@ -69,12 +69,12 @@ export default {
             function(data) {
               var string = new TextDecoder('utf-8').decode(data)
               const [longitude, latitude, timestamp, speed] = string.split(';')
-              // console.log('Data:' + longitude, latitude, timestamp, speed)
+              console.log('Speed:', speed)
               const currentCoord = {
                 lng: Number(longitude),
                 lat: Number(latitude),
                 time: Number(timestamp),
-                speed: Number(speed),
+                speed: Number(speed).toFixed(2),
               }
               self.$store.commit('setCoordinates', currentCoord)
             },
@@ -215,6 +215,14 @@ body {
       background: none;
     }
   }
+  .chart-left-buttons {
+    position: absolute;
+    left: 5px;
+    top: 15px;
+    button {
+      background: none;
+    }
+  }
   .e-map {
     z-index: -1 !important;
   }
@@ -306,10 +314,6 @@ body {
 }
 
 @media only screen and (max-device-width: 500px) {
-  .weather-image {
-    width: 100px;
-    height: 100px;
-  }
   .responsive-text {
     font-size: 0.8em !important;
   }

@@ -4,10 +4,11 @@
         <v-container fluid grid-list-md>
           <v-layout row wrap>
 
-            <v-flex xs6>
+            <v-flex xs6  @click="navigate('weather')">
               <v-card>
-                <v-card-media height="200px">
-                  <v-container fill-height fluid>
+                <v-card-media :height="height + 'px'">
+                  <v-container>
+                    <weather-widget></weather-widget> 
                   </v-container>
                 </v-card-media>
               </v-card>
@@ -15,7 +16,7 @@
 
             <v-flex xs6>
               <v-card>
-                <v-card-media height="200px">
+                <v-card-media :height="height + 'px'">
                   <v-container fill-height fluid>
                   </v-container>
                 </v-card-media>
@@ -24,7 +25,7 @@
 
             <v-flex xs12 @click="navigate('chart')">
               <v-card>
-                <v-card-media height="200px">
+                <v-card-media :height="height + 'px'">
                   <v-container fill-height fluid>
                     <chart :display-zoom="false"></chart>
                   </v-container>
@@ -39,13 +40,25 @@
 
 <script>
 import Chart from './Chart'
+import WeatherWidget from './weather/WeatherWidget'
 import bus from '../Bus'
+import { getForecasts } from '../services/weather'
 
 export default {
-  mounted: function() {
+  created: function() {
+    const width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+    this.height = width > 520 ? 320 : this.height
+  },
+  mounted: async function() {
     bus.$on('mapClicked', () => this.$router.push('chart'))
+    const forecast = await getForecasts()
+    console.log(forecast)
   },
   data: () => ({
+    height: 200,
     cards: [
       {
         title: 'Pre-fab homes',
@@ -69,7 +82,7 @@ export default {
       this.$router.push(route)
     },
   },
-  components: { Chart },
+  components: { Chart, WeatherWidget },
 }
 </script>
 

@@ -10,13 +10,13 @@
           <v-flex xs4>
             <dl>
               <dt>KNOP</dt>
-              <dd>{{currentCoordinate.speed}}</dd>
+              <dd>{{currentCoordinate.speed.toFixed(2)}}</dd>
             </dl>
           </v-flex>
           <v-flex xs4>
             <dl>
               <dt>KNOP (MEDEL)</dt>
-              <dd>{{averageGpsdSpeed}}</dd>
+              <dd>{{averageGpsdSpeed.toFixed(2)}}</dd>
             </dl>
           </v-flex>
           <v-flex xs4>

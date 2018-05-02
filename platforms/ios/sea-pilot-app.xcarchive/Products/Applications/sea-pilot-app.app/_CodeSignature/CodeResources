@@ -86,11 +86,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		gpbLoMy3mJ3hA0s4RBkwGJl5iFA=
+		6WISY2ZTBD0VuqEmISRx+lnP+Ro=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		A7qSRwd8eHk+SpnGm4n22B5e1ks=
+		YLfnx4rd50Ud17DuHzo5mPDQHq4=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -98,11 +98,11 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		z+txieMF7yjK/Sb/Bf0f5tf5PBk=
+		+g/+lnCD2IfvYkh3Mr5qbMi0q+c=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Ajn5kiz0/7p7PaH0cnw3L6DVm9I=
+		mZkuqPvcapDXLoXAMKx1+q4Fm7s=
 		</data>
 		<key>LaunchImage-568h@2x.png</key>
 		<data>
@@ -170,7 +170,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		nzEyj+L7lk/7zi+jgWXcyVaA7EE=
+		XTl0EttBcYGFK/KUIeUBhDGC84U=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -212,13 +212,13 @@
 		<data>
 		Uf48TGcYa951XWTvTopTXcT3LlA=
 		</data>
-		<key>www/css/app.7d048124569109362ef176bb589ac195.css</key>
+		<key>www/css/app.954b79aa9a6109c975e54aebc0d68e2e.css</key>
 		<data>
-		QLv/sigeXoYTuePmES/BiSk5YgQ=
+		cJcWdMSVWDzu3PfsG3AC2RqWogQ=
 		</data>
-		<key>www/css/app.7d048124569109362ef176bb589ac195.css.map</key>
+		<key>www/css/app.954b79aa9a6109c975e54aebc0d68e2e.css.map</key>
 		<data>
-		TGzHfp4EgGi6/ZHCFP0UF3J6Bsk=
+		216Hc+tYQNxspmnr5cuik1HvPhE=
 		</data>
 		<key>www/img/icons/android-chrome-192x192.png</key>
 		<data>
@@ -284,33 +284,105 @@
 		<data>
 		avH7VxOy9r9Rcb4oFC9whvhU6AM=
 		</data>
+		<key>www/img/weather/1.png</key>
+		<data>
+		5Jii5I7em/AQ60Dz076EJPh2wRg=
+		</data>
+		<key>www/img/weather/10.png</key>
+		<data>
+		JlSzV5NtKDlUdhmSUwnZVoYGM8I=
+		</data>
+		<key>www/img/weather/11.png</key>
+		<data>
+		MN9YgyGNmXIiaVCdNFiW4Ei8LW8=
+		</data>
+		<key>www/img/weather/12.png</key>
+		<data>
+		M+F6ow/6eAD81dCqeX+5ICcqy9k=
+		</data>
+		<key>www/img/weather/13.png</key>
+		<data>
+		nt80k9bq+AUK6DFrXR5MZKDROpU=
+		</data>
+		<key>www/img/weather/14.png</key>
+		<data>
+		jII2eCKjfHhQHBHbW91p71egqbc=
+		</data>
+		<key>www/img/weather/15.png</key>
+		<data>
+		pXRLvviMA+HImRvQx5BkvNETZlM=
+		</data>
+		<key>www/img/weather/2.png</key>
+		<data>
+		AfpRZoOqApOYyfmX/8eN6ClCWEk=
+		</data>
+		<key>www/img/weather/3.png</key>
+		<data>
+		yy6b2+G4dhYB6QHoolzfAn7LdqM=
+		</data>
+		<key>www/img/weather/4.png</key>
+		<data>
+		Kr7CJ4getJWAHcBAIgjAjexxt0U=
+		</data>
+		<key>www/img/weather/5.png</key>
+		<data>
+		/iQ5b9bT/0d+NqRGPa5csjmEVXc=
+		</data>
+		<key>www/img/weather/6.png</key>
+		<data>
+		qiSbo0J8gr2V8085Q7a2e4O1Ap8=
+		</data>
+		<key>www/img/weather/7.png</key>
+		<data>
+		x+GSypyJQ4Cr28F5WOKNhl9nguM=
+		</data>
+		<key>www/img/weather/8.png</key>
+		<data>
+		73QCq+6gokfcp+JyE199WR1TrWc=
+		</data>
+		<key>www/img/weather/9.png</key>
+		<data>
+		oh5OMc7zAJ/Os1K7ONA4NXZ8qa8=
+		</data>
+		<key>www/img/weather/http___localhost_8080_ är inte tillgängligt.html</key>
+		<data>
+		gd54NBoQbFqZhwruIs3+tXYEkIo=
+		</data>
+		<key>www/img/weather/nearly-clear-sky.png</key>
+		<data>
+		AfpRZoOqApOYyfmX/8eN6ClCWEk=
+		</data>
+		<key>www/img/weather/sun.png</key>
+		<data>
+		5Jii5I7em/AQ60Dz076EJPh2wRg=
+		</data>
 		<key>www/index.html</key>
 		<data>
-		1OxN5bEUcQUoYOnh356pa/7RvQA=
+		iAL1fsLky9Epn652z8sOL02kcz4=
 		</data>
-		<key>www/js/app.7acfc21fb66077f086c6.js</key>
+		<key>www/js/app.e0ecbc4aaf5c9b117a01.js</key>
 		<data>
-		zQqhMH49LOjKTi62uR7OtLSeGp4=
+		yXv+0ArxSfID2vpXMju3YsfakRQ=
 		</data>
-		<key>www/js/app.7acfc21fb66077f086c6.js.map</key>
+		<key>www/js/app.e0ecbc4aaf5c9b117a01.js.map</key>
 		<data>
-		xYRZWXXN0cCEqlWhNeyV984y4k4=
+		mmCFrMnWTpj8cUdRcjMzGI6fk1U=
 		</data>
-		<key>www/js/manifest.7cb8df6fa92d91f042a3.js</key>
+		<key>www/js/manifest.aca76eff5a85eb223e17.js</key>
 		<data>
-		5EpEv3BKyBjQ4rSBDGCKXHx32vc=
+		+mRQ8ZxgYSKJ3aYAyS3eo8jqjZ0=
 		</data>
-		<key>www/js/manifest.7cb8df6fa92d91f042a3.js.map</key>
+		<key>www/js/manifest.aca76eff5a85eb223e17.js.map</key>
 		<data>
-		JSP7Ir3micEP/4HTqP6KkM3fqM8=
+		2vY/0v7bUbroPFdBZuIgueMPGsQ=
 		</data>
-		<key>www/js/vendor.c56388cab340bf45fb4f.js</key>
+		<key>www/js/vendor.ded21e8151315ac80bfc.js</key>
 		<data>
-		ORBcW27GR9xrTETqsclMcWmQVNQ=
+		+iTMTA0a/Ii9AU4ZqPLanBz+B2E=
 		</data>
-		<key>www/js/vendor.c56388cab340bf45fb4f.js.map</key>
+		<key>www/js/vendor.ded21e8151315ac80bfc.js.map</key>
 		<data>
-		cjh1mi7jcSkmtQDLzY1Ftj/P4kg=
+		wXLVgoyFEeX9viZ939AmkdPDWsg=
 		</data>
 		<key>www/manifest.json</key>
 		<data>
@@ -559,22 +631,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gpbLoMy3mJ3hA0s4RBkwGJl5iFA=
+			6WISY2ZTBD0VuqEmISRx+lnP+Ro=
 			</data>
 			<key>hash2</key>
 			<data>
-			23qPudwxRjBkaF6E59iQ7CLaik4buWS/V7reUjTjM3k=
+			2nPX8iXGRm+xRZdkK7JdxNR4Qg8v/+/yHiZB2Hx0ivA=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			A7qSRwd8eHk+SpnGm4n22B5e1ks=
+			YLfnx4rd50Ud17DuHzo5mPDQHq4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZVOrXizNKhVsXs14/zj31hsD3yfeE70QqH85LowpZnA=
+			L9oblU1kSMya4utxYYH3SVD/rBFzYVfT22m6wRMyzog=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -592,11 +664,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			z+txieMF7yjK/Sb/Bf0f5tf5PBk=
+			+g/+lnCD2IfvYkh3Mr5qbMi0q+c=
 			</data>
 			<key>hash2</key>
 			<data>
-			Rr2LDQ+DfPzt4rl2cWFJe+Qrzzw3nC0PjrNqR4IHp/Q=
+			O79ghIHUgeWdHBWxR9p/wmQNtPawgiep91iA4eXOGsw=
 			</data>
 		</dict>
 		<key>LaunchImage-568h@2x.png</key>
@@ -779,11 +851,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nzEyj+L7lk/7zi+jgWXcyVaA7EE=
+			XTl0EttBcYGFK/KUIeUBhDGC84U=
 			</data>
 			<key>hash2</key>
 			<data>
-			x6X9MjRNmEF5p1YMbr0z/zPtWKnSMkMdN3whXBLjW4k=
+			JAknR+NkAq/N3yOicINDWobC1SYy/YI+veW08OL7vl0=
 			</data>
 		</dict>
 		<key>archived-expanded-entitlements.xcent</key>
@@ -885,26 +957,26 @@
 			QNuVMHPQ8lDtAq8WWLiCYlfkvdWNwhxuogwLnqZBasM=
 			</data>
 		</dict>
-		<key>www/css/app.7d048124569109362ef176bb589ac195.css</key>
+		<key>www/css/app.954b79aa9a6109c975e54aebc0d68e2e.css</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			QLv/sigeXoYTuePmES/BiSk5YgQ=
+			cJcWdMSVWDzu3PfsG3AC2RqWogQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			qBF297j8C3beuI3FydnU+1TRTdei4EVI2GFt8zzTeTk=
+			uvucxMVtGE6sWxaRyeO4oCbTfWgk8gE9XbXamG/B3PQ=
 			</data>
 		</dict>
-		<key>www/css/app.7d048124569109362ef176bb589ac195.css.map</key>
+		<key>www/css/app.954b79aa9a6109c975e54aebc0d68e2e.css.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TGzHfp4EgGi6/ZHCFP0UF3J6Bsk=
+			216Hc+tYQNxspmnr5cuik1HvPhE=
 			</data>
 			<key>hash2</key>
 			<data>
-			/MU9jdlJRPNg33Zo9YhvC9ZobEPJ4Im6hC7Bdh9IPeA=
+			X/Gv4gED95pclujF4Pf93DM/LdO9guJxHpIl/Wh5e20=
 			</data>
 		</dict>
 		<key>www/img/icons/android-chrome-192x192.png</key>
@@ -1083,81 +1155,279 @@
 			oDoXrkGagItfz3y+Plqe2DozJh51PwYPeAdG5MiXg+Y=
 			</data>
 		</dict>
+		<key>www/img/weather/1.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5Jii5I7em/AQ60Dz076EJPh2wRg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BkJvuPXrBz+BggwA6KzuQYNwxmab8C8oN3cXBxXVn3c=
+			</data>
+		</dict>
+		<key>www/img/weather/10.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JlSzV5NtKDlUdhmSUwnZVoYGM8I=
+			</data>
+			<key>hash2</key>
+			<data>
+			CpL0LJR3cUHP4vHZIYeCNz7TKvAdPLhnYPkNnwiU0eM=
+			</data>
+		</dict>
+		<key>www/img/weather/11.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MN9YgyGNmXIiaVCdNFiW4Ei8LW8=
+			</data>
+			<key>hash2</key>
+			<data>
+			zTL4Kg3tvXmz9DJ78zwqi+lYSMBGdKApIki4e+5KTBA=
+			</data>
+		</dict>
+		<key>www/img/weather/12.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M+F6ow/6eAD81dCqeX+5ICcqy9k=
+			</data>
+			<key>hash2</key>
+			<data>
+			TB/uILSpx4AKf68i7tRh5P27jf/Ezb18168aE/YK0Gs=
+			</data>
+		</dict>
+		<key>www/img/weather/13.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nt80k9bq+AUK6DFrXR5MZKDROpU=
+			</data>
+			<key>hash2</key>
+			<data>
+			aRK2RspffIgZjfm7lstf4IfcxV/Qt/kuZmEAv32lpJI=
+			</data>
+		</dict>
+		<key>www/img/weather/14.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jII2eCKjfHhQHBHbW91p71egqbc=
+			</data>
+			<key>hash2</key>
+			<data>
+			q6TVyYR015532B5Yx9yiRJMsbViDGCwgyLUKXY7ipyU=
+			</data>
+		</dict>
+		<key>www/img/weather/15.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pXRLvviMA+HImRvQx5BkvNETZlM=
+			</data>
+			<key>hash2</key>
+			<data>
+			jHcG0D7n05sJ/n25PN6SgcYIApUfWmgyuQ6bgULqJ0Y=
+			</data>
+		</dict>
+		<key>www/img/weather/2.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AfpRZoOqApOYyfmX/8eN6ClCWEk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ej0U0aZl3UhGxUsgsDJbetjW8xwZ/VrFa9qMffJO1JQ=
+			</data>
+		</dict>
+		<key>www/img/weather/3.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yy6b2+G4dhYB6QHoolzfAn7LdqM=
+			</data>
+			<key>hash2</key>
+			<data>
+			3+jnFK6QC1V0KiGmkHKmcTDFuniKRtPMzjZQ3JHyKik=
+			</data>
+		</dict>
+		<key>www/img/weather/4.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Kr7CJ4getJWAHcBAIgjAjexxt0U=
+			</data>
+			<key>hash2</key>
+			<data>
+			lUKdRydr6dNWeS5pSFxKAnlq0AprL99MI1IAtUTwF2s=
+			</data>
+		</dict>
+		<key>www/img/weather/5.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/iQ5b9bT/0d+NqRGPa5csjmEVXc=
+			</data>
+			<key>hash2</key>
+			<data>
+			TlPdY0Y92QbDuSUjd9+KUy1DZC+6AIgYw5UpNoHOmEg=
+			</data>
+		</dict>
+		<key>www/img/weather/6.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qiSbo0J8gr2V8085Q7a2e4O1Ap8=
+			</data>
+			<key>hash2</key>
+			<data>
+			YaylfTWep2EJy6O35I6La5D4Mm/z4NOlSPTIEWneoGs=
+			</data>
+		</dict>
+		<key>www/img/weather/7.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			x+GSypyJQ4Cr28F5WOKNhl9nguM=
+			</data>
+			<key>hash2</key>
+			<data>
+			Axg1sIVODy3ADf0i6TBZxyu9BYez8S5IGU09YaVeu1g=
+			</data>
+		</dict>
+		<key>www/img/weather/8.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			73QCq+6gokfcp+JyE199WR1TrWc=
+			</data>
+			<key>hash2</key>
+			<data>
+			xHxm1oKaMciAOhz8OE4BKBLnHBcVgCSS8UCffNUJP0A=
+			</data>
+		</dict>
+		<key>www/img/weather/9.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oh5OMc7zAJ/Os1K7ONA4NXZ8qa8=
+			</data>
+			<key>hash2</key>
+			<data>
+			LaT2BQEI5Ur+in0+j7djtbZ9rsvvSLyrpPSnDeyz4I8=
+			</data>
+		</dict>
+		<key>www/img/weather/http___localhost_8080_ är inte tillgängligt.html</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gd54NBoQbFqZhwruIs3+tXYEkIo=
+			</data>
+			<key>hash2</key>
+			<data>
+			LUDPfLo3iaUz+pJZCht3pUmyEr/FhxUqioJgKHIz218=
+			</data>
+		</dict>
+		<key>www/img/weather/nearly-clear-sky.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AfpRZoOqApOYyfmX/8eN6ClCWEk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ej0U0aZl3UhGxUsgsDJbetjW8xwZ/VrFa9qMffJO1JQ=
+			</data>
+		</dict>
+		<key>www/img/weather/sun.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5Jii5I7em/AQ60Dz076EJPh2wRg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BkJvuPXrBz+BggwA6KzuQYNwxmab8C8oN3cXBxXVn3c=
+			</data>
+		</dict>
 		<key>www/index.html</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1OxN5bEUcQUoYOnh356pa/7RvQA=
+			iAL1fsLky9Epn652z8sOL02kcz4=
 			</data>
 			<key>hash2</key>
 			<data>
-			bYxRFRN9gLkc+FpPg63fGfpY+8XWtL2xZO3cG+JOFWY=
+			oyw1Uc5rB382EvMTg+owz0JXTrGow8XI5FX98W12N+Y=
 			</data>
 		</dict>
-		<key>www/js/app.7acfc21fb66077f086c6.js</key>
+		<key>www/js/app.e0ecbc4aaf5c9b117a01.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			zQqhMH49LOjKTi62uR7OtLSeGp4=
+			yXv+0ArxSfID2vpXMju3YsfakRQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			x6Fah7WQJ+vzsB+ovjYPRiUj3Qn5L2toc7Pi/6bP2R4=
+			BWh3JpUz6//I+Ad0rjtib/MaS4QMuAlny1f0mo4L5/Y=
 			</data>
 		</dict>
-		<key>www/js/app.7acfc21fb66077f086c6.js.map</key>
+		<key>www/js/app.e0ecbc4aaf5c9b117a01.js.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xYRZWXXN0cCEqlWhNeyV984y4k4=
+			mmCFrMnWTpj8cUdRcjMzGI6fk1U=
 			</data>
 			<key>hash2</key>
 			<data>
-			qY5SFmNNFPX67FpjlUUWexBt2qDjMMySTuCRDyJm0/c=
+			/FyT81VVBnqGC0kk2CFFLAGZkHn8DWf9HUEk5z5UtGU=
 			</data>
 		</dict>
-		<key>www/js/manifest.7cb8df6fa92d91f042a3.js</key>
+		<key>www/js/manifest.aca76eff5a85eb223e17.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5EpEv3BKyBjQ4rSBDGCKXHx32vc=
+			+mRQ8ZxgYSKJ3aYAyS3eo8jqjZ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			NCypvQ8yUj+5CvXnYxchz1x0KKpBgtUa+hxp3+foXCY=
+			ln9RnZctTcxJGR6/hrRCfh4VddCQ8RyhsuBgH68MWj4=
 			</data>
 		</dict>
-		<key>www/js/manifest.7cb8df6fa92d91f042a3.js.map</key>
+		<key>www/js/manifest.aca76eff5a85eb223e17.js.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JSP7Ir3micEP/4HTqP6KkM3fqM8=
+			2vY/0v7bUbroPFdBZuIgueMPGsQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			KYlE5qqsPxOLVidVlTzJtc48kSOpukdBDeuivDr0fY4=
+			OG7cpHSoQaDeT29kxPSnzfE4IVa9CVG8KFRZ6aMHFdo=
 			</data>
 		</dict>
-		<key>www/js/vendor.c56388cab340bf45fb4f.js</key>
+		<key>www/js/vendor.ded21e8151315ac80bfc.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ORBcW27GR9xrTETqsclMcWmQVNQ=
+			+iTMTA0a/Ii9AU4ZqPLanBz+B2E=
 			</data>
 			<key>hash2</key>
 			<data>
-			V7+dD5juUiDkVGuEK/OfdZdec21PB+qTN6mfQ2a2ZJ8=
+			MLCs8l9nc64eEIdiI9DWf6nBDGa2xkX/hDukhhaP79A=
 			</data>
 		</dict>
-		<key>www/js/vendor.c56388cab340bf45fb4f.js.map</key>
+		<key>www/js/vendor.ded21e8151315ac80bfc.js.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cjh1mi7jcSkmtQDLzY1Ftj/P4kg=
+			wXLVgoyFEeX9viZ939AmkdPDWsg=
 			</data>
 			<key>hash2</key>
 			<data>
-			o1VV8Hy1GoCDVhso7vKo2wh1cahFBjNphHtmcTP20EY=
+			rDIz95MI7lSvtdeP0lUc/aadIcA/QckfLVhRto7zSnY=
 			</data>
 		</dict>
 		<key>www/manifest.json</key>
