@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sea-pilot-app.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>062FA440FB08131511550754EF9772EDD0704436</string>
+				<key>dateExpires</key>
+				<string>2019-05-03</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>NRNTNSEDXC.io.sunker.sea-pilot-app</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>NRNTNSEDXC</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>sea-pilot-app.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>cfce6a02-ec68-46a2-93d3-4de1937cc1e5</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>NRNTNSEDXC</string>
+				<key>name</key>
+				<string>Erik Sundell</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
