@@ -23,8 +23,7 @@ export default {
     return getSpeed(state.coordinates[1], state.coordinates[0])
   },
   averageGpsdSpeed: (state, getters) => {
-    if (state.coordinates.length === 1) return 0.00
-    return (state.coordinates.map(x => x.speed).reduce((total, obj) => total = total + obj) / state.coordinates.length).toFixed(2)
+    return state.coordinates.map(x => x.speed).reduce((total, obj) => total = total + obj) / state.coordinates.length
   },
   averageSpeed: (state, getters) => {
     if (state.coordinates.length === 1) return 0.00

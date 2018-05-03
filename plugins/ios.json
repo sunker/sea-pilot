@@ -22,6 +22,9 @@
     "cordova-plugin-ble-central": {
       "BLUETOOTH_USAGE_DESCRIPTION": " ",
       "PACKAGE_NAME": "io.sunker.sea-pilot-app"
+    },
+    "cordova-custom-config": {
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     }
   },
   "dependent_plugins": {

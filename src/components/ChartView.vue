@@ -16,7 +16,7 @@
           <v-flex xs4>
             <dl>
               <dt>KNOP (MEDEL)</dt>
-              <dd>{{averageGpsdSpeed}}</dd>
+              <dd>{{Number(averageGpsdSpeed).toFixed(2)}}</dd>
             </dl>
           </v-flex>
           <v-flex xs4>

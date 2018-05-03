@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		0D0DEB33CAF545D1AE6EDFE0 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 513C82C930594CD393B9D1F9 /* CoreBluetooth.framework */; };

@@ -33,7 +33,8 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.1",
   "cordova-plugin-browsersync": "0.1.7",
   "cordova-plugin-compat": "1.2.0",
-  "cordova-plugin-ble-central": "1.1.4"
+  "cordova-plugin-ble-central": "1.1.4",
+  "cordova-custom-config": "5.0.2"
 };
 // BOTTOM OF METADATA
 });

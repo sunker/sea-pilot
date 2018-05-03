@@ -34,5 +34,6 @@
     <plugin name="cordova-plugin-ble-central" spec="^1.1.4">
         <variable name="BLUETOOTH_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-custom-config" spec="^5.0.2" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

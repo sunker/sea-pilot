@@ -85,7 +85,8 @@
                 console.log('Failed to read characteristic from device.', failure)
               }
             )
-          })
+          },
+          () => console.log('Connection lost'))
         }
   
         function scanFailure(reason) {
