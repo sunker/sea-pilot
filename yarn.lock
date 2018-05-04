@@ -2180,9 +2180,9 @@ cordova-lib@8.0.0:
     valid-identifier "0.0.1"
     xcode "^1.0.0"
 
-cordova-plugin-ble-central@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-ble-central/-/cordova-plugin-ble-central-1.1.4.tgz#ad90369a795ad700a1b9fdd66e19e7ce44a789c3"
+cordova-plugin-ble-central@1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-ble-central/-/cordova-plugin-ble-central-1.1.9.tgz#44ca44e760891636df8dfb20aa1c9e5919c49d46"
 
 cordova-plugin-browsersync@^1.1.0:
   version "1.1.0"
@@ -2204,6 +2204,10 @@ cordova-plugin-compat@^1.2.0:
 cordova-plugin-device@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-device/-/cordova-plugin-device-2.0.2.tgz#fc08f3722e67eef7b6c67bfc99a83df6add0baba"
+
+"cordova-plugin-insomnia@git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git":
+  version "4.3.0"
+  resolved "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git#8d2c3b01fc0c11d9bc36bc1b5f9a141bd097f908"
 
 cordova-plugin-livereload@^1.2.2:
   version "1.2.2"
