@@ -49,7 +49,7 @@
   
   export default {
     mounted: function() {
-      this.chart = new Chart(document.querySelector('.chart-map'), this.currentCoordinate)
+      this.chart = new Chart(document.querySelector('.chart-map'), this.co)
       this.initialized = true
       this.chart.onClick(e => this.chart.setAutoFocus(false))
       this.chart.onClick(e => bus.$emit('mapClicked'))

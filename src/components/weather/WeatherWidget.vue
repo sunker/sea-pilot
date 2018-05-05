@@ -12,7 +12,7 @@
       
       <v-layout row wrap align-center>
         <v-flex xs9>
-          <img class="weather-image" :src="require('../../../static/img/weather/'+imageUrl+'.png')">
+          <img v-if="imageUrl" class="weather-image" :src="require('../../../static/img/weather/'+imageUrl+'.png')">
         </v-flex>
         <v-flex xs3>
           <p class="text-large">{{temperature}}</p>

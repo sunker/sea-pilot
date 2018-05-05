@@ -12,20 +12,21 @@ export default new Vuex.Store({
       lng: 18.06324,
       time: '',
       speed: 0,
+      totalDistance: 0,
       isMob: false,
       defaultCoord: true
     }]
   },
   getters,
   mutations: {
-    setCoordinates (state, { lat, lng, time, speed }) {
+    setCoordinates (state, { lat, lng, time, speed, totalDistance }) {
       if (state.coordinates.length === 1 && state.coordinates[0].defaultCoord === true) {
         state.coordinates.shift()
       }
-      state.coordinates.unshift({ lat, lng, time, speed: speed || 0 })
+      state.coordinates.unshift({ lat, lng, time, speed: speed || 0, totalDistance })
       if (state.journeyMode) {
         let storedCoordinates = JSON.parse(localStorage.getItem('journey'))
-        storedCoordinates.push({ lat, lng, time, speed })
+        storedCoordinates.push({ lat, lng, time, speed, totalDistance })
         localStorage.setItem('journey', JSON.stringify(storedCoordinates))
       } else {
         if (state.coordinates.length >= 10000) state.coordinates.pop()
@@ -36,13 +37,13 @@ export default new Vuex.Store({
       state.journey.ongoing = true
     },
     createJourney (state, startCoord) {
-      localStorage.setItem('journey', JSON.stringify([startCoord]))
-      state.coordinates = [startCoord]
+      // localStorage.setItem('journey', JSON.stringify([startCoord]))
+      // state.coordinates = [startCoord]
       state.journey.ongoing = true
     },
     endJourney (state, coord) {
-      localStorage.removeItem('journey')
-      state.coordinates = [coord]
+      // localStorage.removeItem('journey')
+      // state.coordinates = [coord]
       state.journey.ongoing = false
     }
   }

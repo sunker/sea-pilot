@@ -21,8 +21,8 @@
           </v-flex>
           <v-flex xs4>
             <dl>
-              <dt>Bäring</dt>
-              <dd>{{bearing.toFixed(0) + '°'}}</dd>
+              <dt>NM</dt>
+              <dd>{{Number(currentCoordinate.totalDistance).toFixed(2)}}</dd>
             </dl>
           </v-flex>
   
