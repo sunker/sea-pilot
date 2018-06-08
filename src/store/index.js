@@ -5,7 +5,8 @@ export default new Vuex.Store({
   state: {
     journey: {
       ongoing: false,
-      zoomLevel: 10
+      zoomLevel: 10,
+      splitView: false
     },
     currentCoordinate: {
       lat: 59.334591,
@@ -50,6 +51,9 @@ export default new Vuex.Store({
       localStorage.removeItem('journey')
       state.coordinates = [coord]
       state.journey.ongoing = false
+    },
+    toggleSplitView(state) {
+      state.journey.splitView = !state.journey.splitView
     }
   }
 })

@@ -6,22 +6,29 @@
     <div class="loading-feedback" v-if="initialized === false">
       <p class="text-center temp">Kan inte ansluta till Eniro</p>
     </div>
-    <div>
-    <div class="chart-left-buttons">
-        <v-btn @click="back()" outline dark large color="black">
+    <div v-if="!splitView">
+      <div class="chart-left-buttons">
+        <v-btn @click="back()" outline dark color="black">
           <v-icon dark>arrow_back</v-icon>
         </v-btn>
+      </div>
     </div>
+    <div v-if="!splitView">
+      <div class="chart-center-buttons-2">
+        <v-btn @click="toggleSplitView()" outline dark color="black">
+          <v-icon dark>view_agenda</v-icon>
+        </v-btn>
+      </div>
     </div>
     <div v-if="displayZoom">
       <div class="btn-group-vertical">
         <div class="chart-center-buttons">
-          <v-btn @click="panToCenter($event)" outline fab dark large color="black">
+          <v-btn @click="panToCenter($event)" outline fab dark :small="splitView && height < 820" :large="!splitView && height >= 820" color="black">
             <v-icon dark>my_location</v-icon>
           </v-btn>
         </div>
       </div>
-      <v-flex xs12 sm6 class="chart-zoom-buttons">                      
+      <v-flex v-if="!splitView" xs12 sm6 class="chart-zoom-buttons">
         <div class="text-xs-center">
           <div>
             <v-btn @click="zoomOut($event)" color="black" large dark outline>
@@ -41,20 +48,21 @@
 
 <script>
 import Chart from '../models/Chart'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import bus from '../Bus'
 
 export default {
   mounted: function() {
+    const elem = document.querySelectorAll('.chart-map')[this.splitView ? 1 : 0]
     this.chart = new Chart(
-      document.querySelector('.chart-map'),
+      elem,
       !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null
     )
     this.initialized = true
     this.chart.onClick(e => this.chart.setAutoFocus(false))
     this.chart.onClick(e => bus.$emit('mapClicked'))
   },
-  props: ['displayZoom', 'height'],
+  props: ['displayZoom', 'height', 'splitView'],
   computed: {
     ...mapState(['journey', 'coordinates', 'currentCoordinate']),
   },
@@ -64,6 +72,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['toggleSplitView']),
     longtapHandler() {
       console.log('tap')
     },
@@ -99,7 +108,7 @@ export default {
       )
     },
     'journey.ongoing': function(newVal) {
-      if (newVal) {
+      if (newVal && !this.splitView) {
         this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
       } else {
         this.chart.stopJourney()
