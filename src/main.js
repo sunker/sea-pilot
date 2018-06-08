@@ -6,6 +6,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
 import VueCordova from 'vue-cordova'
 import VueHead from 'vue-head'
+import Vue2TouchEvents from 'vue2-touch-events'
 
 import App from './App'
 import router from './router'
@@ -15,7 +16,7 @@ Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.use(VueCordova)
 Vue.use(VueHead)
-
+Vue.use(Vue2TouchEvents)
 // import store from './store'
 
 // add cordova.js only if serving the app through file://

@@ -6,7 +6,7 @@
     <chart :display-zoom="true" :height="mapHeight"></chart>
     <v-footer v-bind:style="{ height: footerHeight + 'px' }" style="border-top:1px solid gray" height="" class="">
       <v-container grid-list-md text-xs-center>
-        <v-layout row wrap justify-center class="table-journey">
+        <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 140, verylargestats: this.footerHeight > 160 }">
           <v-flex xs4>
             <dl>
               <dt>KNOP</dt>
@@ -57,8 +57,9 @@
           </v-btn>
         </v-toolbar>
         <v-card-text class="chart-button-row">
-          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="endJourney(currentCoordinate)">Avsluta tripp</v-btn>
-          <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Starta tripp</v-btn>
+          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="endJourney(currentCoordinate)">Visa markör</v-btn>
+          <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Visa rutt</v-btn>
+          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm rutt</v-btn>
         </v-card-text>
         <chart-stats-board></chart-stats-board>
       </v-card>
@@ -81,9 +82,8 @@ export default {
     this.footerHeight = height * 0.2
   },
   computed: {
-    ...mapState(['journey']),
+    ...mapState(['journey', 'currentCoordinate']),
     ...mapGetters([
-      'currentCoordinate',
       'bearing',
       'compassDirection',
       'speed',
@@ -96,7 +96,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['createJourney', 'endJourney']),
+    ...mapMutations(['createJourney', 'endJourney', 'clearHistory']),
     formatPosition(pos) {
       const val = pos
         .toFixed(5)

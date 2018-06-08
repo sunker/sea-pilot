@@ -1,7 +1,6 @@
 import { getBearing, getSpeed } from 'geolib'
 
 export default {
-  currentCoordinate: state => state.coordinates[0],
   bearing: state => {
     if (state.coordinates.length < 2) return 0.00
     return getBearing({
@@ -19,6 +18,7 @@ export default {
     return arr[(val % 16)]
   },
   averageGpsdSpeed: (state, getters) => {
+    if (state.coordinates.length === 0) return 0.00
     return state.coordinates.map(x => Number(x.speed || 0)).reduce((total, obj) => {
       total = total + obj
       return total

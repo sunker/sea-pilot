@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { getCurrentWeather } from '../../services/weather'
 
 export default {
   computed: {
-    ...mapGetters(['currentCoordinate']),
+    ...mapState(['currentCoordinate']),
   },
   mounted: async function() {
     const {

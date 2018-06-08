@@ -8,7 +8,7 @@
 
 <script>
 import Vue from 'vue'
-import coordinates from '../testCoordinates.json'
+// import coordinates from '../testCoordinates.json'
 
 export default {
   data() {
@@ -18,26 +18,26 @@ export default {
     }
   },
   mounted: function() {
-    let self = this
-    const journey = localStorage.getItem('journey')
-    if (journey) {
-      self.$store.commit('loadJourney', JSON.parse(journey))
-    }
-    setInterval(function() {
-      if (self.counter === 472) self.counter = 0
-      const coords = coordinates.gpx.wpt[self.counter]
-      self.counter++
-      const timestamp = new Date()
-      timestamp.setSeconds(timestamp.getSeconds() + 15)
-      const currentCoord = {
-        lng: Number(coords.long),
-        lat: Number(coords.lat),
-        time: timestamp.getTime(),
-        totalDistance: Math.floor(Math.random() * 100),
-        speed: Math.floor(Math.random() * 10)
-      }
-      self.$store.commit('setCoordinates', currentCoord)
-    }, 300)
+    // let self = this
+    // const journey = localStorage.getItem('journey')
+    // if (journey) {
+    //   self.$store.commit('loadJourney', JSON.parse(journey))
+    // }
+    // setInterval(function() {
+    //   if (self.counter === 472) self.counter = 0
+    //   const coords = coordinates.gpx.wpt[self.counter]
+    //   self.counter++
+    //   const timestamp = new Date()
+    //   timestamp.setSeconds(timestamp.getSeconds() + 15)
+    //   const currentCoord = {
+    //     lng: Number(coords.long),
+    //     lat: Number(coords.lat),
+    //     time: timestamp.getTime(),
+    //     totalDistance: Math.floor(Math.random() * 100),
+    //     speed: Math.floor(Math.random() * 10)
+    //   }
+    //   self.$store.commit('setCoordinates', currentCoord)
+    // }, 300)
   },
 }
 </script>
@@ -107,7 +107,6 @@ body {
     }
   }
   .widget:nth-child(2) {
-    // border-left: 1px solid #eee;
     height: 100%;
   }
 }
@@ -175,7 +174,7 @@ body {
   }
   dd {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 32px;
     text-align: center;
     &.dd-small {
       font-size: 14px;
@@ -185,6 +184,30 @@ body {
   dl {
     &.dl-tight {
       margin-bottom: 15px;
+    }
+  }
+
+  &.largestats {
+    dd {
+      font-weight: bold;
+      font-size: 38px;
+      text-align: center;
+      &.dd-small {
+        font-size: 16px;
+        margin-top: 3px;
+      }
+    }
+  }
+
+  &.verylargestats {
+    dd {
+      font-weight: bold;
+      font-size: 56px;
+      text-align: center;
+      &.dd-small {
+        font-size: 18px;
+        margin-top: 3px;
+      }
     }
   }
 }

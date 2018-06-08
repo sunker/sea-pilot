@@ -2,7 +2,8 @@
   <v-system-bar status color="primary" lights-out>
     <v-spacer></v-spacer>
     <v-icon v-if="status === 'disconnected'">bluetooth_disabled</v-icon>
-    <v-icon v-if="status === 'connecting'">bluetooth_searching</v-icon>
+    <!-- <v-icon v-if="status === 'connecting'">bluetooth_searching</v-icon> -->
+    <v-icon v-if="status === 'connecting'">bluetooth_disabled</v-icon>
     <v-icon v-if="status === 'connected'">bluetooth_connected</v-icon>
     <span>{{message}}</span>
   </v-system-bar>

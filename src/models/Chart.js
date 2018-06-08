@@ -22,8 +22,8 @@ export default class Chart {
         focus: true
       })
 
-      coord = coord || { lat: 59.334591, lng: 18.06324 }
-      map.panTo(new eniro.maps.LatLng(coord.lat, coord.lng))
+      // coord = coord || { lat: 59.334591, lng: 18.06324 }
+      if (coord) map.panTo(new eniro.maps.LatLng(coord.lat, coord.lng))
 
       if (journeyMode) {
         line = new eniro.maps.Polyline({
@@ -120,6 +120,7 @@ export default class Chart {
   addRedMarker (coordinate) {
     var redMarker = new eniro.maps.Marker({
       map: map,
+      touch: true,
       position: new eniro.maps.LatLng(0, 0), // WAT?
       icon: new eniro.maps.MarkerImage('../../images/MOB.png', new eniro.maps.Size(24, 24), new eniro.maps.Point(0, 0), new eniro.maps.Point(11, 13), 0, 0)
     })
@@ -129,6 +130,9 @@ export default class Chart {
 
   onClick (callback) {
     eniro.maps.event.addListener(map, 'click', callback)
+    eniro.maps.event.addListener(map, 'touchend', (data) => {
+      console.log(data)
+    })
   }
 
   onZoomChange (callback) {

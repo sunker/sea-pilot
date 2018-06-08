@@ -58,9 +58,8 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['journey']),
+    ...mapState(['journey', 'currentCoordinate']),
     ...mapGetters([
-      'currentCoordinate',
       'bearing',
       'compassDirection',
       'averageSpeed',

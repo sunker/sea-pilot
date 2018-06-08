@@ -21,7 +21,7 @@
           </v-btn>
         </div>
       </div>
-      <v-flex xs12 sm6 class="chart-zoom-buttons">
+      <v-flex xs12 sm6 class="chart-zoom-buttons">                      
         <div class="text-xs-center">
           <div>
             <v-btn @click="zoomOut($event)" color="black" large dark outline>
@@ -40,76 +40,78 @@
 </template>
 
 <script>
-  import Chart from '../models/Chart'
-  import {
-    mapGetters,
-    mapState
-  } from 'vuex'
-  import bus from '../Bus'
-  
-  export default {
-    mounted: function() {
-      this.chart = new Chart(document.querySelector('.chart-map'), this.co)
-      this.initialized = true
-      this.chart.onClick(e => this.chart.setAutoFocus(false))
-      this.chart.onClick(e => bus.$emit('mapClicked'))
+import Chart from '../models/Chart'
+import { mapState } from 'vuex'
+import bus from '../Bus'
+
+export default {
+  mounted: function() {
+    this.chart = new Chart(
+      document.querySelector('.chart-map'),
+      !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null
+    )
+    this.initialized = true
+    this.chart.onClick(e => this.chart.setAutoFocus(false))
+    this.chart.onClick(e => bus.$emit('mapClicked'))
+  },
+  props: ['displayZoom', 'height'],
+  computed: {
+    ...mapState(['journey', 'coordinates', 'currentCoordinate']),
+  },
+  data() {
+    return {
+      initialized: false,
+    }
+  },
+  methods: {
+    longtapHandler() {
+      console.log('tap')
     },
-    props: ['displayZoom', 'height'],
-    computed: {
-      ...mapGetters(['currentCoordinate']),
-      ...mapState(['journey', 'coordinates']),
+    back: function() {
+      window.history.back()
     },
-    data() {
-      return {
-        initialized: false,
+    panToCenter: function($event) {
+      $event.stopPropagation()
+      this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
+      this.chart.setAutoFocus(true)
+    },
+    zoomIn: function($event) {
+      $event.stopPropagation()
+      this.chart.zoomIn()
+      // self.$store.commit('setCoordinates', currentCoord)
+    },
+    zoomOut: function($event) {
+      $event.stopPropagation()
+      this.chart.zoomOut()
+    },
+  },
+  watch: {
+    'currentCoordinate.lat': function(newVal) {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+    },
+    'currentCoordinate.lng': function(newVal) {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+    },
+    'journey.ongoing': function(newVal) {
+      if (newVal) {
+        this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
+      } else {
+        this.chart.stopJourney()
       }
     },
-    methods: {
-      back: function() {
-        window.history.back()
-      },
-      panToCenter: function($event) {
-        $event.stopPropagation()
-        this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
-        this.chart.setAutoFocus(true)
-      },
-      zoomIn: function($event) {
-        $event.stopPropagation()
-        this.chart.zoomIn()
-        // self.$store.commit('setCoordinates', currentCoord)
-      },
-      zoomOut: function($event) {
-        $event.stopPropagation()
-        this.chart.zoomOut()
-      },
-    },
-    watch: {
-      'currentCoordinate.lat': function(newVal) {
-        this.chart.setPositionMarker(
-          this.currentCoordinate.lat,
-          this.currentCoordinate.lng
-        )
-      },
-      'currentCoordinate.lng': function(newVal) {
-        this.chart.setPositionMarker(
-          this.currentCoordinate.lat,
-          this.currentCoordinate.lng
-        )
-      },
-      'journey.ongoing': function(newVal) {
-        if (newVal) {
-          this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
-        } else {
-          this.chart.stopJourney()
-        }
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style scoped>
-  .chart-map {
-    width: 100%;
-    height: 500px;
-  }
+.chart-map {
+  width: 100%;
+  height: 500px;
+}
 </style>
