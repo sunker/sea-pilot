@@ -23,6 +23,14 @@ module.exports = [
     "clobbers": [
       "ble"
     ]
+  },
+  {
+    "id": "cordova-plugin-splashscreen.SplashScreen",
+    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+    "pluginId": "cordova-plugin-splashscreen",
+    "clobbers": [
+      "navigator.splashscreen"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -34,7 +42,8 @@ module.exports.metadata =
   "cordova-plugin-browsersync": "0.1.7",
   "cordova-plugin-compat": "1.2.0",
   "cordova-plugin-ble-central": "1.1.4",
-  "cordova-custom-config": "5.0.2"
+  "cordova-custom-config": "5.0.2",
+  "cordova-plugin-splashscreen": "5.0.2"
 };
 // BOTTOM OF METADATA
 });

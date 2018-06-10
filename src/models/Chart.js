@@ -1,5 +1,5 @@
 export default class Chart {
-  constructor(parentDiv, coord) {
+  constructor(parentDiv, coord, zoomLevel = 10) {
     try {
       if (this.map) {
         eniro.maps.event.clearListeners(this.map, 'click')
@@ -7,7 +7,7 @@ export default class Chart {
       }
 
       this.map = new eniro.maps.Map(parentDiv, {
-        zoom: 10,
+        zoom: zoomLevel,
         mapTypeId: eniro.maps.MapTypeId.NAUTICAL,
         mapTypeControl: false,
         zoomControl: false,
@@ -15,21 +15,14 @@ export default class Chart {
       })
 
       this.autoFocus = true
+      this.redMarkers = []
 
       // coord = coord || { lat: 59.334591, lng: 18.06324 }
       if (coord) this.map.panTo(new eniro.maps.LatLng(coord.lat, coord.lng))
-
-      if (this.journeyMode) {
-        this.line = new eniro.maps.Polyline({
-          map: this.map,
-          path: this.linePath
-        })
-      } else {
-        this.marker = new eniro.maps.Marker({
-          map: this.map,
-          position: new eniro.maps.LatLng(0, 0) // WAT?
-        })
-      }
+      this.marker = new eniro.maps.Marker({
+        map: this.map,
+        position: new eniro.maps.LatLng(0, 0) // WAT?
+      })
       return true
     } catch (ex) {
       return false
@@ -42,6 +35,7 @@ export default class Chart {
     } else {
       this.marker.setPosition(new eniro.maps.LatLng(lat, lng))
     }
+    this.marker.setPosition(new eniro.maps.LatLng(lat, lng))
 
     if (this.autoFocus) {
       this.map.panTo(new eniro.maps.LatLng(lat, lng))
@@ -65,7 +59,6 @@ export default class Chart {
   stopJourney () {
     this.journeyMode = false
     if (this.marker) {
-      this.marker.setVisible(true)
       this.marker.setMap(this.map)
     };
 
@@ -80,7 +73,6 @@ export default class Chart {
 
   startNewJourney () {
     this.journeyMode = true
-    this.marker.setVisible(false)
     this.linePath = new eniro.maps.MapArray()
     this.line = new eniro.maps.Polyline({
       map: this.map,
@@ -90,7 +82,6 @@ export default class Chart {
 
   loadJourney (coordinates, zoomLevel) {
     this.journeyMode = true
-    this.marker.setVisible(false)
     this.map.setZoom(zoomLevel)
     this.linePath = new eniro.maps.MapArray()
     for (var i = 0; i < coordinates.length; i++) {
@@ -108,7 +99,6 @@ export default class Chart {
 
   setAutoFocus (focus) {
     this.autoFocus = focus
-    console.log('Autofocus: ' + focus)
   }
 
   addRedMarker (coordinate) {

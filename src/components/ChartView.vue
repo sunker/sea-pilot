@@ -50,12 +50,12 @@
           </v-layout>
         </v-container>
         <v-container v-else grid-list-md text-xs-center>
-          <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 1040, verylargestats: this.height > 1200 }">
+          <v-layout row wrap justify-center class="table-journey mini" v-bind:class="{ largestats: this.footerHeight > 1040, verylargestats: this.height > 1200 }">
             <v-flex xs12>
               <dl>
                 <dt>KNOP</dt>
-                <dd>{{height}}</dd>
-                <!-- <dd>{{Number(currentCoordinate.speed).toFixed(2)}}</dd> -->
+                <!-- <dd>{{height}}</dd> -->
+                <dd>{{Number(currentCoordinate.speed).toFixed(2)}}</dd>
               </dl>
             </v-flex>
             <v-flex xs12>

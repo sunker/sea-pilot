@@ -23,6 +23,10 @@
             {
               "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ],
           "/widget": [
@@ -73,6 +77,9 @@
     },
     "cordova-custom-config": {
       "PACKAGE_NAME": "io.sunker.sea-pilot-app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     }
   },
   "dependent_plugins": {},
@@ -100,6 +107,14 @@
       "clobbers": [
         "ble"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -109,6 +124,7 @@
     "cordova-plugin-browsersync": "0.1.7",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-ble-central": "1.1.4",
-    "cordova-custom-config": "5.0.2"
+    "cordova-custom-config": "5.0.2",
+    "cordova-plugin-splashscreen": "5.0.2"
   }
 }

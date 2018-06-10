@@ -6,28 +6,24 @@
     <div class="loading-feedback" v-if="initialized === false">
       <p class="text-center temp">Kan inte ansluta till Eniro</p>
     </div>
-    <div v-if="!splitView">
-      <div class="chart-left-buttons">
-        <v-btn @click="back()" outline dark color="black">
-          <v-icon dark>arrow_back</v-icon>
-        </v-btn>
-      </div>
-    </div>
-    <div v-if="!splitView">
-      <div class="chart-center-buttons-2">
-        <v-btn @click="toggleSplitView()" outline dark color="black">
-          <v-icon dark>view_agenda</v-icon>
-        </v-btn>
-      </div>
-    </div>
-    <div v-if="displayZoom">
-      <div class="btn-group-vertical">
-        <div class="chart-center-buttons">
-          <v-btn @click="panToCenter($event)" outline fab dark :small="splitView && height < 820" :large="!splitView && height >= 820" color="black">
-            <v-icon dark>my_location</v-icon>
+    <div class="button-group-top">
+      <div class="left">
+        <v-btn v-if="!splitView" @click="back()" outline dark color="black">
+            <v-icon dark>arrow_back</v-icon>
           </v-btn>
-        </div>
       </div>
+      <div>
+        <v-btn v-if="!splitView" @click="toggleSplitView()" outline dark color="black">
+          <v-icon v-if="journey.splitView" dark>crop_16_9</v-icon>
+          <v-icon v-else dark>dehaze</v-icon>
+        </v-btn>
+      </div>
+      <div class="right">
+        <v-btn  @click="panToCenter($event)" outline fab dark :small="splitView && height < 820" :large="!splitView && height >= 820" color="black">
+          <v-icon dark>my_location</v-icon>
+        </v-btn>
+      </div>
+    </div>
       <v-flex v-if="!splitView" xs12 sm6 class="chart-zoom-buttons">
         <div class="text-xs-center">
           <div>
@@ -43,7 +39,6 @@
         </div>
       </v-flex>
     </div>
-  </div>
 </template>
 
 <script>
@@ -56,11 +51,20 @@ export default {
     const elem = document.querySelectorAll('.chart-map')[this.splitView ? 1 : 0]
     this.chart = new Chart(
       elem,
-      !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null
+      !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null,
+      this.splitView ? 14 : this.journey.zoomLevel
     )
     this.initialized = true
     this.chart.onClick(e => this.chart.setAutoFocus(false))
     this.chart.onClick(e => bus.$emit('mapClicked'))
+    if (this.journey.ongoing && !this.splitView) {
+      this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
+    } else {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+    }
   },
   props: ['displayZoom', 'height', 'splitView'],
   computed: {
