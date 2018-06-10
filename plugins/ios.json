@@ -25,6 +25,9 @@
     },
     "cordova-custom-config": {
       "PACKAGE_NAME": "io.sunker.sea-pilot-app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.sunker.sea-pilot-app"
     }
   },
   "dependent_plugins": {

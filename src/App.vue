@@ -8,16 +8,13 @@
 
 <script>
   import Vue from 'vue'
-  import {
-    TextDecoder
-  } from 'text-encoding'
-  // import coordinates from '../testCoordinates.json'
+  import coordinates from '../testCoordinates.json'
   
   export default {
     data() {
       return {
         cordova: Vue.cordova,
-        counter: 0,
+        counter: 1,
       }
     },
     mounted: function() {
@@ -26,101 +23,30 @@
       if (journey) {
         self.$store.commit('loadJourney', JSON.parse(journey))
       }
-      // setInterval(function() {
-      //   if (self.counter === 472) self.counter = 0
-      //   const coords = coordinates.gpx.wpt[self.counter]
-      //   self.counter++
-      //   const timestamp = new Date()
-      //   timestamp.setSeconds(timestamp.getSeconds() + 15)
-      //   const currentCoord = {
-      //     lng: Number(coords.long),
-      //     lat: Number(coords.lat),
-      //     time: timestamp.getTime(),
-      //     speed: 3,
-      //   }
-      //   self.$store.commit('setCoordinates', currentCoord)
-      // }, 1500)
-    },
-    created() {
-      var self = this
-      this.cordova.on('deviceready', () => {
-        console.log('deviceready')
-        self.onDeviceReady()
-      })
-    },
-    methods: {
-      onDeviceReady: function() {
-        let self = this
-        // Handle the device ready event.
-        this.cordova.on('pause', this.onPause, false)
-        this.cordova.on('resume', this.onResume, false)
-        if (this.cordova.device.platform === 'Android') {
-          document.addEventListener('backbutton', this.onBackKeyDown, false)
+      setInterval(function() {
+        if (self.counter === 472) self.counter = 0
+        const coords = coordinates.gpx.wpt[self.counter]
+        self.counter++
+          const timestamp = new Date()
+        timestamp.setSeconds(timestamp.getSeconds() + 15)
+        const currentCoord = {
+          lng: Number(coords.long),
+          lat: Number(coords.lat),
+          time: timestamp.getTime(),
+          totalDistance: Math.floor(Math.random() * 100),
+          speed: Math.floor(Math.random() * 10),
         }
-        console.log('Deviceready')
-  
-        function onScan(peripheral) {
-          console.log('Found ' + JSON.stringify(peripheral))
-          ble.connect(peripheral.id, peripheral => {
-            console.log('Connected to ' + peripheral.id)
-            console.log(peripheral)
-            ble.startNotification(
-              peripheral.id,
-              peripheral.services[0],
-              '00010001-9FAB-43C8-9231-40F6E305F96E',
-              function(data) {
-                var string = new TextDecoder('utf-8').decode(data)
-                // console.log('string:', string)
-                const [longitude, latitude, timestamp, speed] = string.split(';')
-                console.log('Speed:', speed)
-                const currentCoord = {
-                  lng: Number(longitude),
-                  lat: Number(latitude),
-                  time: Number(timestamp),
-                  speed: Number(speed).toFixed(2),
-                }
-                self.$store.commit('setCoordinates', currentCoord)
-              },
-              function(failure) {
-                console.log('Failed to read characteristic from device.', failure)
-              }
-            )
-          },
-          () => console.log('Connection lost'))
-        }
-  
-        function scanFailure(reason) {
-          console.log('BLE Scan Failed', reason)
-        }
-        console.log('Scan')
-        ble.scan(
-          ['00010000-9FAB-43C8-9231-40F6E305F96D'],
-          20,
-          onScan,
-          scanFailure
-        )
-      },
-      onPause() {
-        // Handle the pause lifecycle event.
-        console.log('pause')
-      },
-      onResume() {
-        // Handle the resume lifecycle event.
-        // SetTimeout required for iOS.
-        setTimeout(function() {
-          console.log('resume')
-        }, 0)
-      },
-      onBackKeyDown() {
-        // Handle the back-button event on Android. By default it will exit the app.
-        navigator.app.exitApp()
-      },
+        self.$store.commit('setCoordinates', currentCoord)
+      }, 300)
     },
   }
 </script>
 
 <style lang="scss">
   body {
+    // padding-top: constant(safe-area-inset-top);
+    // padding-top: env(safe-area-inset-top);
+    /* iOS 11.2 */
     font-family: 'helvetica';
   }
   
@@ -183,7 +109,6 @@
       }
     }
     .widget:nth-child(2) {
-      // border-left: 1px solid #eee;
       height: 100%;
     }
   }
@@ -191,6 +116,27 @@
   .chart-map {
     position: relative;
     z-index: 9998;
+    .button-group-top {
+      width: 100%;
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-content: center;
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        width: 32%;
+        &.left {
+          justify-content: left !important;
+        }
+        &.right {
+          justify-content: flex-end !important;
+        }
+      }
+    }
     .btn:focus {
       outline: none;
     }
@@ -218,6 +164,15 @@
         background: none;
       }
     }
+    .chart-center-buttons-2 {
+      position: absolute;
+      width: 100%;
+      left: 44%;
+      top: 15px;
+      button {
+        background: none;
+      }
+    }
     .chart-left-buttons {
       position: absolute;
       left: 5px;
@@ -239,6 +194,9 @@
     border-style: none;
     margin-bottom: 0;
     table-layout: fixed;
+    &.mini dl {
+      margin-bottom: 15px !important;
+    }
     td {
       border-style: none !important;
       max-width: 33%;
@@ -251,7 +209,7 @@
     }
     dd {
       font-weight: bold;
-      font-size: 22px;
+      font-size: 32px;
       text-align: center;
       &.dd-small {
         font-size: 14px;
@@ -261,6 +219,28 @@
     dl {
       &.dl-tight {
         margin-bottom: 15px;
+      }
+    }
+    &.largestats {
+      dd {
+        font-weight: bold;
+        font-size: 38px;
+        text-align: center;
+        &.dd-small {
+          font-size: 16px;
+          margin-top: 3px;
+        }
+      }
+    }
+    &.verylargestats {
+      dd {
+        font-weight: bold;
+        font-size: 56px;
+        text-align: center;
+        &.dd-small {
+          font-size: 18px;
+          margin-top: 3px;
+        }
       }
     }
   }
@@ -323,6 +303,15 @@
     .chart-zoom-buttons {
       display: none !important;
     }
+  }
+  
+  .btn.btn--outline {
+    border: none;
+  }
+  
+  .btn--active {
+    background-color: transparent;
+    opacity: 1;
   }
 </style>
 

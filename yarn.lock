@@ -2180,9 +2180,9 @@ cordova-lib@8.0.0:
     valid-identifier "0.0.1"
     xcode "^1.0.0"
 
-cordova-plugin-ble-central@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-ble-central/-/cordova-plugin-ble-central-1.1.4.tgz#ad90369a795ad700a1b9fdd66e19e7ce44a789c3"
+cordova-plugin-ble-central@1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-ble-central/-/cordova-plugin-ble-central-1.1.9.tgz#44ca44e760891636df8dfb20aa1c9e5919c49d46"
 
 cordova-plugin-browsersync@^1.1.0:
   version "1.1.0"
@@ -2205,6 +2205,10 @@ cordova-plugin-device@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-device/-/cordova-plugin-device-2.0.2.tgz#fc08f3722e67eef7b6c67bfc99a83df6add0baba"
 
+"cordova-plugin-insomnia@git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git":
+  version "4.3.0"
+  resolved "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git#8d2c3b01fc0c11d9bc36bc1b5f9a141bd097f908"
+
 cordova-plugin-livereload@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-livereload/-/cordova-plugin-livereload-1.2.2.tgz#67caafbbed1e7294ba5a70d9cec83f7f434186c0"
@@ -2223,6 +2227,10 @@ cordova-plugin-livereload@^1.2.2:
     semver "^4.3.x"
     shelljs "0.3.0"
     underscore "1.7.0"
+
+cordova-plugin-splashscreen@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz#747e74f56e201cd585bc62d14bca19f6867ff1ed"
 
 cordova-plugin-statusbar@^2.4.1:
   version "2.4.2"
@@ -8903,6 +8911,10 @@ vue-template-compiler@^2.3.3:
 vue-template-es2015-compiler@^1.2.2:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue2-touch-events@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue2-touch-events/-/vue2-touch-events-1.0.0.tgz#e1bf077d04ac93c46d1e811eafc6db6c75cb49d5"
 
 vue@^2.3.3:
   version "2.5.16"

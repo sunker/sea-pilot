@@ -1,9 +1,11 @@
 <template>
-  <v-layout column>
+  <v-layout column fluid>
       <v-card>
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-
+            <v-flex xs12>
+              <ble-connection></ble-connection>
+            </v-flex>
             <v-flex xs6  @click="navigate('weather')">
               <v-card>
                 <v-card-media :height="height + 'px'">
@@ -40,9 +42,9 @@
 
 <script>
 import Chart from './Chart'
+import BleConnection from './BleConnection'
 import WeatherWidget from './weather/WeatherWidget'
 import bus from '../Bus'
-import { getForecasts } from '../services/weather'
 
 export default {
   created: function() {
@@ -54,8 +56,6 @@ export default {
   },
   mounted: async function() {
     bus.$on('mapClicked', () => this.$router.push('chart'))
-    const forecast = await getForecasts()
-    console.log(forecast)
   },
   data: () => ({
     height: 200,
@@ -82,7 +82,7 @@ export default {
       this.$router.push(route)
     },
   },
-  components: { Chart, WeatherWidget },
+  components: { Chart, WeatherWidget, BleConnection },
 }
 </script>
 

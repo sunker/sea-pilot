@@ -50,12 +50,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { getForecasts } from '../../services/weather'
 
 export default {
   computed: {
-    ...mapGetters(['currentCoordinate']),
+    ...mapState(['currentCoordinate']),
   },
   mounted: async function() {
     const forecasts = await getForecasts(this.currentCoordinate)

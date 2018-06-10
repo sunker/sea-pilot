@@ -2,13 +2,13 @@
   <v-layout row wrap justify-center class="table-journey">
     <v-flex xs4>
       <dl>
-        <dt>KNOP(GPSD)</dt>
+        <dt>KNOP</dt>
         <dd>{{Number(currentCoordinate.speed).toFixed(2)}}</dd>
       </dl>
     </v-flex>
     <v-flex xs4>
       <dl>
-        <dt>MEDELKNOP (GPSD)</dt>
+        <dt>MEDELKNOP</dt>
         <dd>{{Number(averageGpsdSpeed).toFixed(2)}}</dd>
       </dl>
     </v-flex>
@@ -21,23 +21,10 @@
   
     <v-flex xs4>
       <dl>
-        <dt>KNOP</dt>
-        <dd>{{Number(speed).toFixed(2)}}</dd>
+        <dt>NM</dt>
+        <dd>{{Number(currentCoordinate.totalDistance).toFixed(2)}}</dd>
       </dl>
     </v-flex>
-    <v-flex xs4>
-      <dl>
-        <dt>MEDELKNOP</dt>
-        <dd>{{Number(averageSpeed).toFixed(2)}}</dd>
-      </dl>
-    </v-flex>
-    <v-flex xs4>
-      <dl>
-        <dt>KMH (GPSD)</dt>
-        <dd>{{(currentCoordinate.speed * 1.852).toFixed(2)}}</dd>
-      </dl>
-    </v-flex>
-  
     <v-flex xs4>
       <dl>
         <dt>KOMPASSRIKTNING</dt>
@@ -46,11 +33,18 @@
     </v-flex>
     <v-flex xs4>
       <dl>
+        <dt>KMH</dt>
+        <dd>{{(currentCoordinate.speed * 1.852).toFixed(2)}}</dd>
+      </dl>
+    </v-flex>
+  
+    <v-flex xs6>
+      <dl>
         <dt>LATITUD</dt>
         <dd>{{formatPosition(this.currentCoordinate.lat) + 'N'}}</dd>
       </dl>
     </v-flex>
-    <v-flex xs4>
+    <v-flex xs6>
       <dl>
         <dt>LONGITUD</dt>
         <dd>{{formatPosition(this.currentCoordinate.lng) + 'E'}}</dd>
@@ -64,12 +58,10 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['journey']),
+    ...mapState(['journey', 'currentCoordinate']),
     ...mapGetters([
-      'currentCoordinate',
       'bearing',
       'compassDirection',
-      'speed',
       'averageSpeed',
       'averageGpsdSpeed'
     ]),
