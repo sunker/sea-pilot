@@ -36,6 +36,7 @@
     "vue": "^2.3.3",
     "vue-cordova": "^0.1.2",
     "vue-head": "^2.0.12",
+    "vue-long-press-directive": "^1.0.2",
     "vue-router": "^2.3.1",
     "vue2-touch-events": "^1.0.0",
     "vuetify": "^1.0.0",

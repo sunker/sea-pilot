@@ -114,9 +114,10 @@ export default class Chart {
 
   onClick (callback) {
     eniro.maps.event.addListener(this.map, 'click', callback)
-    eniro.maps.event.addListener(this.map, 'touchend', (data) => {
-      console.log(data)
-    })
+  }
+
+  onMoveEnd (callback) {
+    eniro.maps.event.addListener(this.map, 'moveend', callback)
   }
 
   onZoomChange (callback) {

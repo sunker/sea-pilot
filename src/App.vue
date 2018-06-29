@@ -8,7 +8,7 @@
 
 <script>
   import Vue from 'vue'
-  import coordinates from '../testCoordinates.json'
+  // import coordinates from '../testCoordinates.json'
   
   export default {
     data() {
@@ -18,26 +18,26 @@
       }
     },
     mounted: function() {
-      let self = this
-      const journey = localStorage.getItem('journey')
-      if (journey) {
-        self.$store.commit('loadJourney', JSON.parse(journey))
-      }
-      setInterval(function() {
-        if (self.counter === 472) self.counter = 0
-        const coords = coordinates.gpx.wpt[self.counter]
-        self.counter++
-          const timestamp = new Date()
-        timestamp.setSeconds(timestamp.getSeconds() + 15)
-        const currentCoord = {
-          lng: Number(coords.long),
-          lat: Number(coords.lat),
-          time: timestamp.getTime(),
-          totalDistance: Math.floor(Math.random() * 100),
-          speed: Math.floor(Math.random() * 10),
-        }
-        self.$store.commit('setCoordinates', currentCoord)
-      }, 300)
+      // let self = this
+      // const journey = localStorage.getItem('journey')
+      // if (journey) {
+      //   self.$store.commit('loadJourney', JSON.parse(journey))
+      // }
+      // setInterval(function() {
+      //   if (self.counter === 472) self.counter = 0
+      //   const coords = coordinates.gpx.wpt[self.counter]
+      //   self.counter++
+      //     const timestamp = new Date()
+      //   timestamp.setSeconds(timestamp.getSeconds() + 15)
+      //   const currentCoord = {
+      //     lng: Number(coords.long),
+      //     lat: Number(coords.lat),
+      //     time: timestamp.getTime(),
+      //     totalDistance: Math.floor(Math.random() * 100),
+      //     speed: Math.floor(Math.random() * 10),
+      //   }
+      //   self.$store.commit('setCoordinates', currentCoord)
+      // }, 1000)
     },
   }
 </script>

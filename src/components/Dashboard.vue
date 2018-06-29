@@ -20,6 +20,7 @@
               <v-card>
                 <v-card-media :height="height + 'px'">
                   <v-container fill-height fluid>
+                    <a @click="$router.push(({ name: 'CreateRoute', params: { name: 'test' } }))">test</a>
                   </v-container>
                 </v-card-media>
               </v-card>

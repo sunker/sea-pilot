@@ -16,7 +16,9 @@ Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.use(VueCordova)
 Vue.use(VueHead)
-Vue.use(Vue2TouchEvents)
+Vue.use(Vue2TouchEvents, {
+  longTapTimeInterval: 100
+})
 // import store from './store'
 
 // add cordova.js only if serving the app through file://

@@ -3,9 +3,9 @@
     <v-btn class="expand-info" fab dark small @click.stop="dialog = true" v-bind:style="{ top: mapHeight - 15 + 'px' }">
       <v-icon dark>add</v-icon>
     </v-btn>
-    <chart :display-zoom="true" :height="mapHeight"></chart>
+    <chart :display-zoom="true" :disable-split-view="false" :height="mapHeight"></chart>
     <div class="below-wrapper" v-bind:class="{ split: journey.splitView }">
-      <chart v-if="journey.splitView" class="split-map" :split-view="true" :display-zoom="true" :height="footerHeight" v-bind:style="{ 'flex-basis': (this.height > 1000 ? 82 : 75) + '%'}" v-bind:class="{ split: journey.splitView }"></chart>
+      <chart v-if="journey.splitView" :disable-split-view="true" class="split-map" :split-view="true" :display-zoom="true" :height="footerHeight" v-bind:style="{ 'flex-basis': (this.height > 1000 ? 82 : 75) + '%'}" v-bind:class="{ split: journey.splitView }"></chart>
       <v-footer v-bind:style="{ height: footerHeight + 'px' }" v-bind:class="{ split: journey.splitView }" style="border-top:1px solid gray;" height="" class="">
         <v-container v-if="!journey.splitView" grid-list-md text-xs-center>
           <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 700, verylargestats: this.height > 1000 }">
@@ -77,6 +77,9 @@
     <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition" :overlay="false" class="extra-info-dialog" scrollable>
       <v-card tile>
         <v-toolbar card dark color="secondary">
+          <v-btn icon @click.native="$router.push('rutter')" dark class="dialog-button-close" style="margin-left: 13px !important;">
+            <v-icon>timeline</v-icon>
+          </v-btn>
           <v-btn icon @click.native="dialog = false" dark class="dialog-button-close">
             <v-icon>close</v-icon>
           </v-btn>

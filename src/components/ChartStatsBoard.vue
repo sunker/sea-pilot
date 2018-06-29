@@ -54,32 +54,35 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-
-export default {
-  computed: {
-    ...mapState(['journey', 'currentCoordinate']),
-    ...mapGetters([
-      'bearing',
-      'compassDirection',
-      'averageSpeed',
-      'averageGpsdSpeed'
-    ]),
-  },
-  methods: {
-    formatPosition(pos) {
-      const val = pos
-        .toFixed(5)
-        .toString()
-        .replace('.', '°')
-      return val.substr(0, 5) + '.' + val.substr(5)
+  import {
+    mapGetters,
+    mapState
+  } from 'vuex'
+  
+  export default {
+    computed: {
+      ...mapState(['journey', 'currentCoordinate']),
+      ...mapGetters([
+        'bearing',
+        'compassDirection',
+        'averageSpeed',
+        'averageGpsdSpeed'
+      ]),
     },
+    methods: {
+      formatPosition(pos) {
+        const val = pos
+          .toFixed(5)
+          .toString()
+          .replace('.', '°')
+        return val.substr(0, 5) + '.' + val.substr(5)
+      },
+    }
   }
-}
 </script>
 
 <style scoped>
-.table-journey {
-  margin-top: 50px;
-}
+  .table-journey {
+    margin-top: 50px;
+  }
 </style>
