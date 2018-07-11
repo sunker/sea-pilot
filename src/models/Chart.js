@@ -76,7 +76,8 @@ export default class Chart {
     this.linePath = new eniro.maps.MapArray()
     this.line = new eniro.maps.Polyline({
       map: this.map,
-      path: this.linePath
+      path: this.linePath,
+      strokeWeight: 3
     })
   }
 
@@ -94,6 +95,19 @@ export default class Chart {
     this.line = new eniro.maps.Polyline({
       map: this.map,
       path: this.linePath
+    })
+  }
+
+  loadRoute (linePath) {
+    const routeLinePath = new eniro.maps.MapArray()
+    this.routeLine = new eniro.maps.Polyline({
+      map: this.map,
+      path: routeLinePath,
+      strokeColor: '#505050',
+      strokeWeight: 3
+    })
+    linePath.forEach(l => {
+      routeLinePath.push(new eniro.maps.LatLng(l.y, l.x))
     })
   }
 

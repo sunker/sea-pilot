@@ -21,6 +21,12 @@ export default new Router({
       component: ChartView
     },
     {
+      path: '/chart/:routeId',
+      name: 'ChartRoute',
+      component: ChartView,
+      props: true
+    },
+    {
       path: '/weather',
       name: 'weather',
       component: WeatherForecast
@@ -31,7 +37,7 @@ export default new Router({
       component: Routes
     },
     {
-      path: '/skapa-rutt/:name',
+      path: '/skapa-rutt/:name/:id',
       name: 'CreateRoute',
       component: CreateRoute,
       props: true

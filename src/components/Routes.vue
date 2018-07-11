@@ -12,6 +12,69 @@
         </v-btn>
       </div>
     </div>
+
+
+     <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+
+        <v-list two-line subheader>
+          <v-subheader inset>På din enhet</v-subheader>
+
+          <v-list-tile
+            v-for="item in routes"
+            :key="item.id"
+            avatar
+            @click="routeClick(item)"
+            v-touch="{ left: () => swipeLeft() }">
+            <v-list-tile-avatar>
+              <v-icon>map</v-icon>
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ item.totalDistance }} NM</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+
+    </v-flex>
+     <v-dialog
+      v-model="deleteDialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="headline">Ta bort rutt?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="deleteDialog = false"
+          >
+            Avbryt
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="deleteDialog = false"
+          >
+            Ja
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="routeClickDialog" transition="dialog" :overlay="true" class="extra-info-dialog" scrollable>
+      <v-card tile>
+        <v-card-text class="chart-button-row">
+          <v-btn
+          color="secondary" @click.native="edit(current)">Ändra</v-btn>
+          <v-btn color="primary" @click.native="start(current)">Starta navigering</v-btn>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-dialog v-model="dialog" transition="dialog" :overlay="true" class="extra-info-dialog" scrollable>
       <v-card tile>
         <v-card-text class="chart-button-row">
@@ -31,24 +94,80 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   mounted: async function() {
     const routes = localStorage.getItem('routes')
     if (routes) {
-      this.routes = JSON.parse(routes)
+      this.routes = Object.values(JSON.parse(routes))
     }
   },
   data: () => ({
+    current: null,
     routes: [],
     dialog: false,
-    newRouteName: ''
+    deleteDialog: false,
+    routeClickDialog: false,
+    newRouteName: '',
   }),
+  computed: {
+    ...mapGetters(['splitView']),
+  },
   methods: {
+    routeClick(route) {
+      this.current = route
+      this.routeClickDialog = true
+    },
+    swipeLeft() {
+      console.log('test')
+      this.deleteDialog = true
+    },
     back: function() {
       window.history.back()
     },
     create(route) {
-      this.$router.push(({ name: 'CreateRoute', params: { name: this.newRouteName } }))
+      this.$router.push({
+        name: 'CreateRoute',
+        params: { name: this.newRouteName, id: this.guid() },
+      })
+    },
+    edit(route) {
+      this.routeClickDialog = false
+      this.$router.push({
+        name: 'CreateRoute',
+        params: { name: route.name, id: route.id },
+      })
+    },
+    start(route) {
+      this.routeClickDialog = false
+      this.$router.push({
+        name: 'ChartRoute',
+        params: {
+          routeId: route.id
+        },
+      })
+    },
+    guid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1)
+      }
+      return (
+        s4() +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        s4() +
+        s4()
+      )
     },
   },
   components: {},

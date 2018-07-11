@@ -3,7 +3,7 @@
     <v-btn class="expand-info" fab dark small @click.stop="dialog = true" v-bind:style="{ top: mapHeight - 15 + 'px' }">
       <v-icon dark>add</v-icon>
     </v-btn>
-    <chart :display-zoom="true" :disable-split-view="false" :height="mapHeight"></chart>
+    <chart :display-zoom="true" :disable-split-view="false" :height="mapHeight" :route-id="routeId"></chart>
     <div class="below-wrapper" v-bind:class="{ split: journey.splitView }">
       <chart v-if="journey.splitView" :disable-split-view="true" class="split-map" :split-view="true" :display-zoom="true" :height="footerHeight" v-bind:style="{ 'flex-basis': (this.height > 1000 ? 82 : 75) + '%'}" v-bind:class="{ split: journey.splitView }"></chart>
       <v-footer v-bind:style="{ height: footerHeight + 'px' }" v-bind:class="{ split: journey.splitView }" style="border-top:1px solid gray;" height="" class="">
@@ -27,8 +27,8 @@
                 <dd>{{Number(currentCoordinate.totalDistance).toFixed(2)}}</dd>
               </dl>
             </v-flex>
-    
-    
+  
+  
             <v-flex xs4>
               <dl>
                 <dt>KOMPASSRIKTNING</dt>
@@ -77,7 +77,7 @@
     <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition" :overlay="false" class="extra-info-dialog" scrollable>
       <v-card tile>
         <v-toolbar card dark color="secondary">
-          <v-btn icon @click.native="$router.push('rutter')" dark class="dialog-button-close" style="margin-left: 13px !important;">
+          <v-btn icon @click.native="$router.push({ name: 'routes'})" dark class="dialog-button-close" style="margin-left: 13px !important;">
             <v-icon>timeline</v-icon>
           </v-btn>
           <v-btn icon @click.native="dialog = false" dark class="dialog-button-close">
@@ -101,6 +101,7 @@ import ChartStatsBoard from './ChartStatsBoard'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
+  props: (['routeId']),
   created: function() {
     this.height =
       window.innerHeight ||

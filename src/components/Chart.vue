@@ -42,91 +42,96 @@
 </template>
 
 <script>
-  import Chart from '../models/Chart'
-  import {
-    mapState,
-    mapMutations
-  } from 'vuex'
-  import bus from '../Bus'
-  
-  export default {
-    mounted: function() {
-      const elem = document.querySelectorAll('.chart-map')[this.splitView ? 1 : 0]
-      this.chart = new Chart(
-        elem, !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null,
-        this.splitView ? 14 : this.journey.zoomLevel
+import Chart from '../models/Chart'
+import { mapState, mapMutations } from 'vuex'
+import bus from '../Bus'
+
+export default {
+  mounted: function() {
+    const elem = document.querySelectorAll('.chart-map')[this.splitView ? 1 : 0]
+    this.chart = new Chart(
+      elem,
+      !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null,
+      this.splitView ? 14 : this.journey.zoomLevel
+    )
+    this.initialized = true
+    this.chart.onClick(e => this.chart.setAutoFocus(false))
+    this.chart.onClick(e => bus.$emit('mapClicked'))
+    if (this.journey.ongoing && !this.splitView) {
+      this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
+    } else {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
       )
-      this.initialized = true
-      this.chart.onClick(e => this.chart.setAutoFocus(false))
-      this.chart.onClick(e => bus.$emit('mapClicked'))
-      if (this.journey.ongoing && !this.splitView) {
+    }
+    if (this.routeId) {
+      const routesItem = localStorage.getItem('routes')
+      const routes = routesItem ? JSON.parse(routesItem) : {}
+      this.chart.loadRoute(
+        routes[this.routeId].linePath
+      )
+    }
+  },
+  props: ['displayZoom', 'height', 'splitView', 'routeId'],
+  computed: {
+    ...mapState(['journey', 'coordinates', 'currentCoordinate']),
+  },
+  data() {
+    return {
+      initialized: false,
+    }
+  },
+  methods: {
+    ...mapMutations(['toggleSplitView']),
+    longtapHandler() {
+      console.log('tap')
+    },
+    back: function() {
+      window.history.back()
+    },
+    panToCenter: function($event) {
+      $event.stopPropagation()
+      this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
+      this.chart.setAutoFocus(true)
+    },
+    zoomIn: function($event) {
+      $event.stopPropagation()
+      this.chart.zoomIn()
+      // self.$store.commit('setCoordinates', currentCoord)
+    },
+    zoomOut: function($event) {
+      $event.stopPropagation()
+      this.chart.zoomOut()
+    },
+  },
+  watch: {
+    'currentCoordinate.lat': function(newVal) {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+    },
+    'currentCoordinate.lng': function(newVal) {
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+    },
+    'journey.ongoing': function(newVal) {
+      if (newVal && !this.splitView) {
         this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
       } else {
-        this.chart.setPositionMarker(
-          this.currentCoordinate.lat,
-          this.currentCoordinate.lng
-        )
+        this.chart.stopJourney()
       }
     },
-    props: ['displayZoom', 'height', 'splitView'],
-    computed: {
-      ...mapState(['journey', 'coordinates', 'currentCoordinate']),
-    },
-    data() {
-      return {
-        initialized: false
-      }
-    },
-    methods: {
-      ...mapMutations(['toggleSplitView']),
-      longtapHandler() {
-        console.log('tap')
-      },
-      back: function() {
-        window.history.back()
-      },
-      panToCenter: function($event) {
-        $event.stopPropagation()
-        this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
-        this.chart.setAutoFocus(true)
-      },
-      zoomIn: function($event) {
-        $event.stopPropagation()
-        this.chart.zoomIn()
-        // self.$store.commit('setCoordinates', currentCoord)
-      },
-      zoomOut: function($event) {
-        $event.stopPropagation()
-        this.chart.zoomOut()
-      },
-    },
-    watch: {
-      'currentCoordinate.lat': function(newVal) {
-        this.chart.setPositionMarker(
-          this.currentCoordinate.lat,
-          this.currentCoordinate.lng
-        )
-      },
-      'currentCoordinate.lng': function(newVal) {
-        this.chart.setPositionMarker(
-          this.currentCoordinate.lat,
-          this.currentCoordinate.lng
-        )
-      },
-      'journey.ongoing': function(newVal) {
-        if (newVal && !this.splitView) {
-          this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
-        } else {
-          this.chart.stopJourney()
-        }
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style scoped>
-  .chart-map {
-    width: 100%;
-    height: 500px;
-  }
+.chart-map {
+  width: 100%;
+  height: 500px;
+}
 </style>

@@ -17,13 +17,18 @@
         <h2>{{name}}</h2>
       </div>
       <div class="right">
-        <v-btn @click="panToCenter($event)" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
-          <v-icon dark>my_location</v-icon>
+        <v-btn :disabled="linePath.length <= 1" @click="save()" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
+          <v-icon dark>save</v-icon>
         </v-btn>
       </div>
     </div>
     <v-flex xs12 sm6 class="chart-zoom-buttons">
       <div class="text-xs-center">
+        <div>
+          <v-btn style="margin-bottom:18px" @click="panToCenter($event)" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
+            <v-icon dark>my_location</v-icon>
+          </v-btn>
+        </div>
         <div>
           <v-btn @click="zoomOut($event)" color="black" large dark outline>
             <v-icon>add</v-icon>
@@ -40,16 +45,33 @@
     <v-footer v-bind:style="{ height: footerHeight + 'px' }" style="border-top:1px solid gray;" height="" class="">
         <v-container v-if="!journey.splitView" grid-list-md text-xs-center>
           <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 700, verylargestats: this.footerHeight > 1000 }">
-            <v-flex xs6>
+            <v-flex xs4>
               <dl>
-                <dt>KNOP</dt>
-                <dd>{{Number(currentCoordinate.speed).toFixed(2)}}</dd>
+                <dt>NM</dt>
+                <dd>{{totalDistance}}</dd>
               </dl>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs4>
               <dl>
                 <dt>KNOP (MEDEL)</dt>
-                <dd>{{linePath.length}}</dd>
+                <dd>
+                  <v-slider
+                    color="black"
+                    v-model="knots"
+                    persistent-hint
+                    :max="9.5"
+                    :min="0.5"
+                    step="0.5"
+                    ticks
+                    always-dirty
+                  ></v-slider>
+                </dd>
+              </dl>
+            </v-flex>
+            <v-flex xs4>
+              <dl>
+                <dt>TID</dt>
+                <dd>{{totalTime}} h</dd>
               </dl>
             </v-flex>
           </v-layout>
@@ -72,7 +94,13 @@ export default {
       this.journey.zoomLevel
     )
     this.initialized = true
+    const routesItem = localStorage.getItem('routes')
+    const routes = routesItem ? JSON.parse(routesItem) : {}
     this.chart.startNewJourney()
+    if (routes.hasOwnProperty(this.id)) {
+      this.chart.loadRoute(routes[this.id].linePath)
+      this.linePath = routes[this.id].linePath
+    }
     this.chart.onClick(e => this.chart.setAutoFocus(false))
     this.chart.onClick(this.onClick)
     this.chart.onMoveEnd(e => (this.lastMove = new Date()))
@@ -81,14 +109,36 @@ export default {
       this.currentCoordinate.lat,
       this.currentCoordinate.lng
     )
-    bus.$on('routeChanged', linePath => (this.linePath = linePath))
+    bus.$on('routeChanged', linePath => {
+      this.linePath = linePath
+    })
   },
-  props: ['name'],
+  props: ['name', 'id'],
   computed: {
     ...mapState(['journey', 'coordinates', 'currentCoordinate']),
+    totalDistance() {
+      if (this.linePath.length > 1) {
+        return this.linePath
+          .reduce((sum, curr, count) => {
+            if (count === 0) {
+              return sum
+            } else {
+              const prev = this.linePath[count - 1]
+              return sum + this.getDistance(prev.x, prev.y, curr.x, curr.y)
+            }
+          }, 0)
+          .toFixed(2)
+      } else {
+        return 0
+      }
+    },
+    totalTime() {
+      return (Number(this.totalDistance) / this.knots).toFixed(2)
+    },
   },
   data() {
     return {
+      knots: 5,
       initialized: false,
       mapHeight:
         (window.innerHeight ||
@@ -104,6 +154,19 @@ export default {
     }
   },
   methods: {
+    save() {
+      const routesItem = localStorage.getItem('routes')
+      const routes = routesItem ? JSON.parse(routesItem) : {}
+      routes[this.id] = {
+        knots: this.knots,
+        linePath: this.linePath,
+        name: this.name,
+        totalDistance: this.totalDistance,
+        totalTime: this.totalTime,
+        id: this.id,
+      }
+      localStorage.setItem('routes', JSON.stringify(routes))
+    },
     onClick(e) {
       if (
         !this.lastMove ||
@@ -148,27 +211,6 @@ export default {
       return dist
     },
   },
-  // watch: {
-  //   'currentCoordinate.lat': function(newVal) {
-  //     this.chart.setPositionMarker(
-  //       this.currentCoordinate.lat,
-  //       this.currentCoordinate.lng
-  //     )
-  //   },
-  //   'currentCoordinate.lng': function(newVal) {
-  //     this.chart.setPositionMarker(
-  //       this.currentCoordinate.lat,
-  //       this.currentCoordinate.lng
-  //     )
-  //   },
-  //   'journey.ongoing': function(newVal) {
-  //     if (newVal && !this.splitView) {
-  //       this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
-  //     } else {
-  //       this.chart.stopJourney()
-  //     }
-  //   },
-  // },
 }
 </script>
 

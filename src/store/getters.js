@@ -35,5 +35,8 @@ export default {
       currentCoordinate = state.coordinates[i]
     }
     return (totalSpeed / state.coordinates.length).toFixed(2)
+  },
+  splitView(state) {
+    return state.journey.splitView
   }
 }

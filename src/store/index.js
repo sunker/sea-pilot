@@ -52,7 +52,7 @@ export default new Vuex.Store({
       state.coordinates = [coord]
       state.journey.ongoing = false
     },
-    toggleSplitView(state) {
+    toggleSplitView (state) {
       state.journey.splitView = !state.journey.splitView
     }
   }

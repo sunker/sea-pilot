@@ -32,11 +32,6 @@ export default class Chart {
   }
 
   setPositionMarker (lat, lng) {
-    if (this.journeyMode) {
-      this.linePath.push(new eniro.maps.LatLng(lat, lng))
-    } else {
-      this.marker.setPosition(new eniro.maps.LatLng(lat, lng))
-    }
     this.marker.setPosition(new eniro.maps.LatLng(lat, lng))
 
     if (this.autoFocus) {
@@ -73,7 +68,8 @@ export default class Chart {
     this.line = new eniro.maps.Polyline({
       map: this.map,
       path: this.linePath,
-      strokeColor: '#000'
+      strokeColor: '#505050',
+      strokeWeight: 3
     })
   }
 
@@ -92,31 +88,20 @@ export default class Chart {
     eniro.maps.event.addListener(marker, 'drag', function (e) {
       self.linePath.setAt(this.zIndex - 100, e.latLng)
       eniro.maps.event.trigger(self.map, 'moveend')
-      bus.$emit('routeChanged', self.linePath)
+      const copy = Object.assign([], self.linePath.array)
+      copy[this.zIndex - 100] = e.latLng
+      bus.$emit('routeChanged', copy)
     })
 
     eniro.maps.event.addListener(this.map, 'zoom_changed', function () {
       marker.setVisible(self.map.getZoom() > 10)
     })
     this.markers.push(marker)
-    bus.$emit('routeChanged', this.linePath)
+    bus.$emit('routeChanged', this.linePath.array)
   }
 
-  loadJourney (coordinates, zoomLevel) {
-    this.journeyMode = true
-    this.map.setZoom(zoomLevel)
-    this.linePath = new eniro.maps.MapArray()
-    for (var i = 0; i < coordinates.length; i++) {
-      const { lat, lng, isMob } = coordinates[i]
-      if (isMob) {
-        this.addRedMarker({ lat, lng })
-      }
-      this.linePath.push(new eniro.maps.LatLng(lat, lng))
-    }
-    this.line = new eniro.maps.Polyline({
-      map: this.map,
-      path: this.linePath
-    })
+  loadRoute (linePath) {
+    linePath.forEach(l => this.setWaypoint(new eniro.maps.LatLng(l.y, l.x)))
   }
 
   setAutoFocus (focus) {
