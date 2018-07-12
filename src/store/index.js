@@ -3,6 +3,7 @@ import getters from './getters.js'
 
 export default new Vuex.Store({
   state: {
+    lastStoredCoordinate: null,
     journey: {
       ongoing: false,
       zoomLevel: 10,
@@ -24,26 +25,27 @@ export default new Vuex.Store({
     setCoordinates (state, { lat, lng, time, speed, totalDistance }) {
       state.coordinates.push({ lat, lng, time, speed: speed || 0, totalDistance })
       state.currentCoordinate = { lat, lng, time, speed: speed || 0, totalDistance }
-      // if (state.journeyMode) {
-      let storedCoordinates = JSON.parse(localStorage.getItem('journey')) || []
-      storedCoordinates.push({ lat, lng, time, speed, totalDistance })
-      localStorage.setItem('journey', JSON.stringify(storedCoordinates))
-      // } else {
-      //   if (state.coordinates.length >= 10000) state.coordinates.pop()
-      // }
+
+      if (!state.lastStoredCoordinate) {
+        state.lastStoredCoordinate = new Date()
+      }
+      console.log('Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()', Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()))
+      if (Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()) > 4000) {
+        console.log('store')
+        let storedCoordinates = JSON.parse(localStorage.getItem('journey')) || []
+        storedCoordinates.push({ lat, lng, time, speed, totalDistance })
+        localStorage.setItem('journey', JSON.stringify(storedCoordinates))
+        state.lastStoredCoordinate = new Date()
+      }
     },
     loadJourney (state, coordinates) {
       state.coordinates = coordinates
       state.journey.ongoing = true
     },
     createJourney (state, startCoord) {
-      // localStorage.setItem('journey', JSON.stringify([startCoord]))
-      // state.coordinates = [startCoord]
       state.journey.ongoing = true
     },
     endJourney (state, coord) {
-      // localStorage.removeItem('journey')
-      // state.coordinates = [coord]
       state.journey.ongoing = false
     },
     clearHistory (state, coord) {

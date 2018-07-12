@@ -85,14 +85,9 @@
           </v-btn>
         </v-toolbar>
         <v-card-text class="chart-button-row">
-          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="endJourney(currentCoordinate)">Visa markör</v-btn>
-          <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Visa rutt</v-btn>
-          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm rutt</v-btn>
-        </v-card-text>
-        <v-card-text class="chart-button-row">
-          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="endJourney(currentCoordinate)">Visa markör</v-btn>
-          <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Visa rutt</v-btn>
-          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm rutt</v-btn>
+          <v-btn  :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm trippmätare</v-btn>
+          <v-btn color="secondary" @click="removeRoute()">Avsluta rutt</v-btn>
+          <v-switch :label="journey.ongoing ? 'Göm historik' : 'Visa historik'" v-model="journey.ongoing"></v-switch>
         </v-card-text>
         <chart-stats-board></chart-stats-board>
       </v-card>
@@ -101,88 +96,102 @@
 </template>
 
 <script>
-import Chart from './Chart'
-import ChartStatsBoard from './ChartStatsBoard'
-import { mapGetters, mapMutations, mapState } from 'vuex'
-
-export default {
-  props: (['routeId']),
-  created: function() {
-    this.height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-  },
-  computed: {
-    ...mapState(['journey', 'currentCoordinate']),
-    ...mapGetters(['bearing', 'compassDirection', 'speed', 'averageGpsdSpeed']),
-    mapHeight() {
-      return this.height * (this.journey.splitView ? 0.6 : 0.8)
+  import Chart from './Chart'
+  import ChartStatsBoard from './ChartStatsBoard'
+  import bus from '../Bus'
+  import {
+    mapGetters,
+    mapMutations,
+    mapState
+  } from 'vuex'
+  
+  export default {
+    props: ['routeId'],
+    created: function() {
+      this.height =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight
     },
-    footerHeight() {
-      return this.height * (this.journey.splitView ? 0.4 : 0.2)
+    computed: {
+      ...mapState(['journey', 'currentCoordinate']),
+      ...mapGetters(['bearing', 'compassDirection', 'speed', 'averageGpsdSpeed']),
+      mapHeight() {
+        return this.height * (this.journey.splitView ? 0.6 : 0.8)
+      },
+      footerHeight() {
+        return this.height * (this.journey.splitView ? 0.4 : 0.2)
+      },
     },
-  },
-  data() {
-    return {
-      dialog: false,
-      height: 0,
-    }
-  },
-  methods: {
-    ...mapMutations(['createJourney', 'endJourney', 'clearHistory']),
-    formatPosition(pos) {
-      const val = pos
-        .toFixed(5)
-        .toString()
-        .replace('.', '°')
-      return val.substr(0, 5) + '.' + val.substr(5)
+    data() {
+      return {
+        dialog: false,
+        height: 0,
+      }
     },
-  },
-  components: {
-    Chart,
-    ChartStatsBoard,
-  },
-}
+    methods: {
+      ...mapMutations(['createJourney', 'endJourney', 'clearHistory']),
+      formatPosition(pos) {
+        const val = pos
+          .toFixed(5)
+          .toString()
+          .replace('.', '°')
+        return val.substr(0, 5) + '.' + val.substr(5)
+      },
+      removeRoute() {
+        this.dialog = false
+        bus.$emit('removeRoute')
+      },
+    },
+    components: {
+      Chart,
+      ChartStatsBoard,
+    },
+  }
 </script>
 
 <style scoped>
-.expand-info {
-  position: absolute;
-  z-index: 10000;
-  left: 50%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  height: 30px;
-  width: 30px;
-}
+  .expand-info {
+    position: absolute;
+    z-index: 10000;
+    left: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 30px;
+    width: 30px;
+  }
+  
+  .extra-info-dialog {
+    z-index: 10001;
+  }
+  
+  .chart-button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 12px;
+  }
 
-.extra-info-dialog {
-  z-index: 10001;
-}
-
-.chart-button-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.dialog-button-close {
-  margin-left: auto !important;
-}
-
-.below-wrapper.split {
-  border-top: 2px solid gray;
-  display: flex;
-}
+  .chart-button-row * {
+    flex: 0 1 33%;
+  }
+  
+  .dialog-button-close {
+    margin-left: auto !important;
+  }
+  
+  .below-wrapper.split {
+    border-top: 2px solid gray;
+    display: flex;
+  }
 </style>
 
 <style>
-.split-map {
-  flex-grow: 0;
-  flex-shrink: 0;
-  border-right: 2px solid gray;
-}
+  .split-map {
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-right: 2px solid gray;
+  }
 </style>
 

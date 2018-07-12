@@ -99,16 +99,21 @@ export default class Chart {
   }
 
   loadRoute (linePath) {
-    const routeLinePath = new eniro.maps.MapArray()
+    this.routeLinePath = new eniro.maps.MapArray()
     this.routeLine = new eniro.maps.Polyline({
       map: this.map,
-      path: routeLinePath,
+      path: this.routeLinePath,
       strokeColor: '#505050',
       strokeWeight: 3
     })
     linePath.forEach(l => {
-      routeLinePath.push(new eniro.maps.LatLng(l.y, l.x))
+      this.routeLinePath.push(new eniro.maps.LatLng(l.y, l.x))
     })
+  }
+
+  removeRoute (linePath) {
+    if (this.routeLine) this.routeLine.setMap(null)
+    if (this.routeLinePath) this.routeLinePath = []
   }
 
   setAutoFocus (focus) {

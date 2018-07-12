@@ -66,16 +66,18 @@ export default {
       )
     }
     if (this.routeId) {
-      const routesItem = localStorage.getItem('routes')
-      const routes = routesItem ? JSON.parse(routesItem) : {}
-      this.chart.loadRoute(
-        routes[this.routeId].linePath
-      )
+      this.loadRoute(this.routeId)
     }
+    bus.$on('removeRoute', () => this.chart.removeRoute())
   },
   props: ['displayZoom', 'height', 'splitView', 'routeId'],
   computed: {
-    ...mapState(['journey', 'coordinates', 'currentCoordinate']),
+    ...mapState([
+      'journey',
+      'coordinates',
+      'currentCoordinate',
+      'currentRouteId',
+    ]),
   },
   data() {
     return {
@@ -84,8 +86,10 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleSplitView']),
-    longtapHandler() {
-      console.log('tap')
+    loadRoute(routeId) {
+      const routesItem = localStorage.getItem('routes')
+      const routes = routesItem ? JSON.parse(routesItem) : {}
+      this.chart.loadRoute(routes[routeId].linePath)
     },
     back: function() {
       window.history.back()
@@ -123,6 +127,15 @@ export default {
         this.chart.loadJourney(this.coordinates, this.journey.zoomLevel)
       } else {
         this.chart.stopJourney()
+      }
+    },
+    'currentRouteId': function(newVal) {
+      if (newVal && !this.splitView) {
+        this.loadRoute(newVal)
+      } else if (!newVal && !this.splitView) {
+        // Remove route
+      } else {
+        // this.chart.stopJourney()
       }
     },
   },

@@ -10,6 +10,11 @@
       </div>
       <div class="right">
         <v-btn @click="dialog = true" outline dark color="black">
+          <v-icon dark>add</v-icon>
+        </v-btn>
+      </div>
+      <div class="right">
+        <v-btn @click="editMode = !editMode" outline dark :color="editMode ? 'green' : 'black'">
           <v-icon dark>create</v-icon>
         </v-btn>
       </div>
@@ -37,6 +42,11 @@
               <v-list-tile-title>{{ item.name }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ item.totalDistance }} NM</v-list-tile-sub-title>
             </v-list-tile-content>
+             <v-list-tile-action v-if="editMode">
+              <v-btn icon ripple @click.stop="deleteRoute(item)">
+                <v-icon color="red">delete</v-icon>
+              </v-btn>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -101,12 +111,10 @@ import { mapGetters } from 'vuex'
 
 export default {
   mounted: async function() {
-    const routes = localStorage.getItem('routes')
-    if (routes) {
-      this.routes = Object.values(JSON.parse(routes))
-    }
+    this.init()
   },
   data: () => ({
+    editMode: false,
     current: null,
     routes: [],
     dialog: false,
@@ -118,6 +126,12 @@ export default {
     ...mapGetters(['splitView']),
   },
   methods: {
+    init() {
+      const routes = localStorage.getItem('routes')
+      if (routes) {
+        this.routes = Object.values(JSON.parse(routes))
+      }
+    },
     routeClick(route) {
       this.current = route
       this.routeClickDialog = true
@@ -141,6 +155,13 @@ export default {
         name: 'CreateRoute',
         params: { name: route.name, id: route.id },
       })
+    },
+    deleteRoute(route) {
+      const routesItem = localStorage.getItem('routes')
+      const routes = routesItem ? JSON.parse(routesItem) : {}
+      delete routes[route.id]
+      localStorage.setItem('routes', JSON.stringify(routes))
+      this.init()
     },
     start(route) {
       this.routeClickDialog = false
