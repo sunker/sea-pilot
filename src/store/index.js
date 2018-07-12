@@ -29,9 +29,7 @@ export default new Vuex.Store({
       if (!state.lastStoredCoordinate) {
         state.lastStoredCoordinate = new Date()
       }
-      console.log('Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()', Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()))
       if (Math.abs(state.lastStoredCoordinate.getTime() - new Date().getTime()) > 4000) {
-        console.log('store')
         let storedCoordinates = JSON.parse(localStorage.getItem('journey')) || []
         storedCoordinates.push({ lat, lng, time, speed, totalDistance })
         localStorage.setItem('journey', JSON.stringify(storedCoordinates))

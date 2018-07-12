@@ -1,82 +1,75 @@
 <template>
-      <div>
-  <div class="chart-map create-route" v-bind:style="{ height: mapHeight + 'px' }">
-    <div class="loading-feedback" v-if="initialized === null">
-      <p class="text-center temp">Laddar sjökort...</p>
-    </div>
-    <div class="loading-feedback" v-if="initialized === false">
-      <p class="text-center temp">Kan inte ansluta till Eniro</p>
-    </div>
-    <div class="button-group-top">
-      <div class="left">
-        <v-btn @click="back()" outline dark color="black">
-          <v-icon dark>arrow_back</v-icon>
-        </v-btn>
+  <div>
+    <div class="chart-map create-route" v-bind:style="{ height: mapHeight + 'px' }">
+      <div class="loading-feedback" v-if="initialized === null">
+        <p class="text-center temp">Laddar sjökort...</p>
       </div>
-      <div>
-        <h2>{{name}}</h2>
+      <div class="loading-feedback" v-if="initialized === false">
+        <p class="text-center temp">Kan inte ansluta till Eniro</p>
       </div>
-      <div class="right">
-        <v-btn :disabled="linePath.length <= 1" @click="save()" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
-          <v-icon dark>save</v-icon>
-        </v-btn>
-      </div>
-    </div>
-    <v-flex xs12 sm6 class="chart-zoom-buttons">
-      <div class="text-xs-center">
-        <div>
-          <v-btn style="margin-bottom:18px" @click="panToCenter($event)" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
-            <v-icon dark>my_location</v-icon>
+      <div class="button-group-top">
+        <div class="left">
+          <v-btn @click="back()" outline dark color="black">
+            <v-icon dark>arrow_back</v-icon>
           </v-btn>
         </div>
         <div>
-          <v-btn @click="zoomOut($event)" color="black" large dark outline>
-            <v-icon>add</v-icon>
-          </v-btn>
+          <h2>{{name}}</h2>
         </div>
-        <div>
-          <v-btn @click="zoomIn($event)" color="black" large dark outline>
-            <v-icon>remove</v-icon>
+        <div class="right">
+          <v-btn :disabled="linePath.length <= 1" @click="save()" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
+            <v-icon dark>save</v-icon>
           </v-btn>
         </div>
       </div>
-    </v-flex>
-  </div>
+      <v-flex xs12 sm6 class="chart-zoom-buttons">
+        <div class="text-xs-center">
+          <div>
+            <v-btn style="margin-bottom:18px" @click="panToCenter($event)" outline fab dark :small="mapHeight < 820" :large="mapHeight >= 820" color="black">
+              <v-icon dark>my_location</v-icon>
+            </v-btn>
+          </div>
+          <div>
+            <v-btn @click="zoomOut($event)" color="black" large dark outline>
+              <v-icon>add</v-icon>
+            </v-btn>
+          </div>
+          <div>
+            <v-btn @click="zoomIn($event)" color="black" large dark outline>
+              <v-icon>remove</v-icon>
+            </v-btn>
+          </div>
+        </div>
+      </v-flex>
+    </div>
     <v-footer v-bind:style="{ height: footerHeight + 'px' }" style="border-top:1px solid gray;" height="" class="">
-        <v-container v-if="!journey.splitView" grid-list-md text-xs-center>
-          <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 700, verylargestats: this.footerHeight > 1000 }">
-            <v-flex xs4>
-              <dl>
-                <dt>NM</dt>
-                <dd>{{totalDistance}}</dd>
-              </dl>
-            </v-flex>
-            <v-flex xs4>
-              <dl>
-                <dt>KNOP (MEDEL)</dt>
-                <dd>
-                  <v-slider
-                    color="black"
-                    v-model="knots"
-                    persistent-hint
-                    :max="9.5"
-                    :min="0.5"
-                    step="0.5"
-                    ticks
-                    always-dirty
-                  ></v-slider>
-                </dd>
-              </dl>
-            </v-flex>
-            <v-flex xs4>
-              <dl>
-                <dt>TID</dt>
-                <dd>{{totalTime}} h</dd>
-              </dl>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-footer>
+      <v-container v-if="!journey.splitView" grid-list-md text-xs-center>
+        <v-layout row wrap justify-center class="table-journey" v-bind:class="{ largestats: this.footerHeight > 700, verylargestats: this.footerHeight > 1000 }">
+          <v-flex xs4>
+            <dl>
+              <dt>NM</dt>
+              <dd>{{totalDistance}}</dd>
+            </dl>
+          </v-flex>
+          <v-flex xs4>
+            <dl>
+              <dt>KNOP (MEDEL)</dt>
+              <dd>
+                <v-slider color="black" 
+
+                v-model="knots" :max="9.5" :min="0.5" step="0.5" ticks :thumb-label="true"></v-slider>
+              </dd>
+            </dl>
+          </v-flex>
+          <v-flex xs4>
+            <dl>
+              <dt>TID</dt>
+              <dd>{{totalTime}} h</dd>
+            </dl>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-footer>
   </div>
 </template>
 
@@ -100,6 +93,7 @@ export default {
     if (routes.hasOwnProperty(this.id)) {
       this.chart.loadRoute(routes[this.id].linePath)
       this.linePath = routes[this.id].linePath
+      this.knots = routes[this.id].knots
     }
     this.chart.onClick(e => this.chart.setAutoFocus(false))
     this.chart.onClick(this.onClick)
@@ -111,6 +105,7 @@ export default {
     )
     bus.$on('routeChanged', linePath => {
       this.linePath = linePath
+      this.save()
     })
   },
   props: ['name', 'id'],
@@ -153,6 +148,11 @@ export default {
       linePath: [],
     }
   },
+  watch: {
+    knots: function() {
+      this.save()
+    }
+  },
   methods: {
     save() {
       const routesItem = localStorage.getItem('routes')
@@ -170,7 +170,7 @@ export default {
     onClick(e) {
       if (
         !this.lastMove ||
-        Math.abs(this.lastMove.getTime() - new Date().getTime()) > 500
+        Math.abs(this.lastMove.getTime() - new Date().getTime()) > 400
       ) {
         this.chart.setWaypoint(e.latLng)
       }
