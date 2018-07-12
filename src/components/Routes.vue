@@ -1,5 +1,7 @@
 <template>
-  <v-layout column fluid>
+  <v-layout column fluid
+  v-touch="{ left: () => swipeLeft(),
+            right: () => swipeLeft() }">
     <div class="button-group-top">
       <div class="left">
         <v-btn @click="back()" outline dark color="black">
@@ -25,7 +27,8 @@
             :key="item.id"
             avatar
             @click="routeClick(item)"
-            v-touch="{ left: () => swipeLeft() }">
+            v-touch="{ left: () => console.log('esda'),
+            right: () => swipeLeft() }">
             <v-list-tile-avatar>
               <v-icon>map</v-icon>
             </v-list-tile-avatar>
@@ -144,7 +147,7 @@ export default {
       this.$router.push({
         name: 'ChartRoute',
         params: {
-          routeId: route.id
+          routeId: route.id,
         },
       })
     },

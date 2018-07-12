@@ -89,6 +89,11 @@
           <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Visa rutt</v-btn>
           <v-btn large :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm rutt</v-btn>
         </v-card-text>
+        <v-card-text class="chart-button-row">
+          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="endJourney(currentCoordinate)">Visa markör</v-btn>
+          <v-btn large :disabled="journey.ongoing" color="secondary" @click="createJourney(currentCoordinate)">Visa rutt</v-btn>
+          <v-btn large :disabled="!journey.ongoing" slot="activator" @click="clearHistory(currentCoordinate)">Töm rutt</v-btn>
+        </v-card-text>
         <chart-stats-board></chart-stats-board>
       </v-card>
     </v-dialog>
