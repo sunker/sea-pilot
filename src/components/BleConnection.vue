@@ -41,13 +41,14 @@
         )
       },
       formatCoord: function(bleString) {
-        const [longitude, latitude, timestamp, speed, totalDistance] = bleString.split(';')
+        const [longitude, latitude, timestamp, speed, totalDistance, track] = bleString.split(';')
         return {
           lng: Number(longitude),
           lat: Number(latitude),
           time: Number(timestamp),
           speed: Number(speed).toFixed(2),
           totalDistance: Number(totalDistance).toFixed(2),
+          track
         }
       },
       onPulseGps: function(data) {

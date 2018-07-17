@@ -16,15 +16,16 @@ export default new Vuex.Store({
       speed: 0,
       totalDistance: 0,
       isMob: false,
-      defaultCoord: true
+      defaultCoord: true,
+      track: 0
     },
     coordinates: []
   },
   getters,
   mutations: {
-    setCoordinates (state, { lat, lng, time, speed, totalDistance }) {
+    setCoordinates (state, { lat, lng, time, speed, totalDistance, track }) {
       state.coordinates.push({ lat, lng, time, speed: speed || 0, totalDistance })
-      state.currentCoordinate = { lat, lng, time, speed: speed || 0, totalDistance }
+      state.currentCoordinate = { lat, lng, time, speed: speed || 0, totalDistance, track }
 
       if (!state.lastStoredCoordinate) {
         state.lastStoredCoordinate = new Date()

@@ -8,7 +8,7 @@
 
 <script>
 import Vue from 'vue'
-import coordinates from '../testCoordinates.json'
+// import coordinates from '../testCoordinates.json'
 
 export default {
   data() {
@@ -24,21 +24,21 @@ export default {
       const coordinates = JSON.parse(journey)
       self.$store.commit('loadJourney', coordinates)
     }
-    setInterval(function() {
-      if (self.counter === 472) self.counter = 0
-      const coords = coordinates.gpx.wpt[self.counter]
-      self.counter++
-      const timestamp = new Date()
-      timestamp.setSeconds(timestamp.getSeconds() + 15)
-      const currentCoord = {
-        lng: Number(coords.long),
-        lat: Number(coords.lat),
-        time: timestamp.getTime(),
-        totalDistance: Math.floor(Math.random() * 100),
-        speed: Math.floor(Math.random() * 10),
-      }
-      self.$store.commit('setCoordinates', currentCoord)
-    }, 1000)
+    // setInterval(function() {
+    //   if (self.counter === 472) self.counter = 0
+    //   const coords = coordinates.gpx.wpt[self.counter]
+    //   self.counter++
+    //   const timestamp = new Date()
+    //   timestamp.setSeconds(timestamp.getSeconds() + 15)
+    //   const currentCoord = {
+    //     lng: Number(coords.long),
+    //     lat: Number(coords.lat),
+    //     time: timestamp.getTime(),
+    //     totalDistance: Math.floor(Math.random() * 100),
+    //     speed: Math.floor(Math.random() * 10),
+    //   }
+    //   self.$store.commit('setCoordinates', currentCoord)
+    // }, 1000)
   },
 }
 </script>
@@ -223,25 +223,35 @@ body {
       margin-bottom: 15px;
     }
   }
-  &.largestats {
+  &.mini {
     dd {
       font-weight: bold;
-      font-size: 38px;
+      font-size: 50px;
       text-align: center;
       &.dd-small {
         font-size: 16px;
         margin-top: 3px;
       }
     }
+    dt {
+      font-size: 12px;
+    }
   }
   &.verylargestats {
-    dd {
-      font-weight: bold;
-      font-size: 56px;
-      text-align: center;
-      &.dd-small {
-        font-size: 18px;
-        margin-top: 3px;
+    .flex {
+      padding: 0 !important;
+      dd {
+        font-weight: bold;
+        font-size: 72px;
+        text-align: center;
+        line-height: 1.35;
+        &.dd-small {
+          font-size: 18px;
+          margin-top: 3px;
+        }
+      }
+      dt {
+        font-size: 16px;
       }
     }
   }

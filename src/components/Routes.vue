@@ -21,7 +21,7 @@
     </div>
 
 
-     <v-flex xs12 sm6 offset-sm3>
+     <v-flex class="routes-wrapper" xs12 sm6 offset-sm3>
       <v-card>
 
         <v-list two-line subheader>
@@ -201,5 +201,9 @@ export default {
 <style scoped>
 .button-group-top {
   margin-top: 10px;
+}
+
+.routes-wrapper {
+  margin-left: 0;
 }
 </style>

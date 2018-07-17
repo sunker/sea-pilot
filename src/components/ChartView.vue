@@ -24,15 +24,15 @@
             <v-flex xs4>
               <dl>
                 <dt>NM</dt>
-                <dd>{{Number(currentCoordinate.totalDistance).toFixed(2)}}</dd>
+                <dd>{{Number(currentCoordinate.totalDistance ? currentCoordinate.totalDistance : 0).toFixed(2)}}</dd>
               </dl>
             </v-flex>
   
   
             <v-flex xs4>
               <dl>
-                <dt>KOMPASSRIKTNING</dt>
-                <dd class="dd-small">{{compassDirection}}</dd>
+                <dt>BÄRING</dt>
+                <dd class="dd-small">{{Number(currentCoordinate.track).toFixed(0) + '°'}}</dd>
               </dl>
             </v-flex>
             <v-flex xs4>
@@ -50,7 +50,7 @@
           </v-layout>
         </v-container>
         <v-container v-else grid-list-md text-xs-center>
-          <v-layout row wrap justify-center class="table-journey mini" v-bind:class="{ largestats: this.footerHeight > 1040, verylargestats: this.height > 1200 }">
+          <v-layout row wrap justify-center class="table-journey mini" v-bind:class="{ largestats: this.height > 1040, verylargestats: this.height > 1200 }">
             <v-flex xs12>
               <dl>
                 <dt>KNOP</dt>

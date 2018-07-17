@@ -55,9 +55,7 @@
             <dl>
               <dt>KNOP (MEDEL)</dt>
               <dd>
-                <v-slider color="black" 
-
-                v-model="knots" :max="9.5" :min="0.5" step="0.5" ticks :thumb-label="true"></v-slider>
+                <v-slider color="black" v-model="knots" :max="9.5" :min="0.5" step="0.5" ticks :thumb-label="true"></v-slider>
               </dd>
             </dl>
           </v-flex>
@@ -74,153 +72,153 @@
 </template>
 
 <script>
-import Chart from '../models/ChartPlotter'
-import { mapState } from 'vuex'
-import bus from '../Bus'
-
-export default {
-  mounted: function() {
-    const elem = document.querySelector('.chart-map.create-route')
-    this.chart = new Chart(
-      elem,
-      !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null,
-      this.journey.zoomLevel
-    )
-    this.initialized = true
-    const routesItem = localStorage.getItem('routes')
-    const routes = routesItem ? JSON.parse(routesItem) : {}
-    this.chart.startNewJourney()
-    if (routes.hasOwnProperty(this.id)) {
-      this.chart.loadRoute(routes[this.id].linePath)
-      this.linePath = routes[this.id].linePath
-      this.knots = routes[this.id].knots
-    }
-    this.chart.onClick(e => this.chart.setAutoFocus(false))
-    this.chart.onClick(this.onClick)
-    this.chart.onMoveEnd(e => (this.lastMove = new Date()))
-    this.chart.onZoomChange(e => (this.lastMove = new Date()))
-    this.chart.setPositionMarker(
-      this.currentCoordinate.lat,
-      this.currentCoordinate.lng
-    )
-    bus.$on('routeChanged', linePath => {
-      this.linePath = linePath
-      this.save()
-    })
-  },
-  props: ['name', 'id'],
-  computed: {
-    ...mapState(['journey', 'coordinates', 'currentCoordinate']),
-    totalDistance() {
-      if (this.linePath.length > 1) {
-        return this.linePath
-          .reduce((sum, curr, count) => {
-            if (count === 0) {
-              return sum
-            } else {
-              const prev = this.linePath[count - 1]
-              return sum + this.getDistance(prev.x, prev.y, curr.x, curr.y)
-            }
-          }, 0)
-          .toFixed(2)
-      } else {
-        return 0
-      }
-    },
-    totalTime() {
-      return (Number(this.totalDistance) / this.knots).toFixed(2)
-    },
-  },
-  data() {
-    return {
-      knots: 5,
-      initialized: false,
-      mapHeight:
-        (window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight) * 0.85,
-      footerHeight:
-        (window.innerHeight ||
-          document.documentElement.clientHeight ||
-          document.body.clientHeight) * 0.15,
-      displayZoom: false,
-      lastMove: null,
-      linePath: [],
-    }
-  },
-  watch: {
-    knots: function() {
-      this.save()
-    }
-  },
-  methods: {
-    save() {
+  import Chart from '../models/ChartPlotter'
+  import {
+    mapState
+  } from 'vuex'
+  import bus from '../Bus'
+  
+  export default {
+    mounted: function() {
+      const elem = document.querySelector('.chart-map.create-route')
+      this.chart = new Chart(
+        elem, !this.currentCoordinate.defaultCoord ? this.currentCoordinate : null,
+        this.journey.zoomLevel
+      )
+      this.initialized = true
       const routesItem = localStorage.getItem('routes')
       const routes = routesItem ? JSON.parse(routesItem) : {}
-      routes[this.id] = {
-        knots: this.knots,
-        linePath: this.linePath,
-        name: this.name,
-        totalDistance: this.totalDistance,
-        totalTime: this.totalTime,
-        id: this.id,
+      this.chart.startNewJourney()
+      if (routes.hasOwnProperty(this.id)) {
+        this.chart.loadRoute(routes[this.id].linePath)
+        this.linePath = routes[this.id].linePath
+        this.knots = routes[this.id].knots
       }
-      localStorage.setItem('routes', JSON.stringify(routes))
+      this.chart.onClick(e => this.chart.setAutoFocus(false))
+      this.chart.onClick(this.onClick)
+      this.chart.onMoveEnd(e => (this.lastMove = new Date()))
+      this.chart.onZoomChange(e => (this.lastMove = new Date()))
+      this.chart.setPositionMarker(
+        this.currentCoordinate.lat,
+        this.currentCoordinate.lng
+      )
+      bus.$on('routeChanged', linePath => {
+        this.linePath = linePath
+        this.save()
+      })
     },
-    onClick(e) {
-      if (
-        !this.lastMove ||
-        Math.abs(this.lastMove.getTime() - new Date().getTime()) > 400
-      ) {
-        this.chart.setWaypoint(e.latLng)
+    props: ['name', 'id'],
+    computed: {
+      ...mapState(['journey', 'coordinates', 'currentCoordinate']),
+      totalDistance() {
+        if (this.linePath.length > 1) {
+          return this.linePath
+            .reduce((sum, curr, count) => {
+              if (count === 0) {
+                return sum
+              } else {
+                const prev = this.linePath[count - 1]
+                return sum + this.getDistance(prev.y, prev.x, curr.y, curr.x)
+              }
+            }, 0)
+            .toFixed(2)
+        } else {
+          return 0
+        }
+      },
+      totalTime() {
+        return (Number(this.totalDistance) / this.knots).toFixed(2)
+      },
+    },
+    data() {
+      return {
+        knots: 5,
+        initialized: false,
+        mapHeight:
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) * 0.85,
+        footerHeight:
+          (window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight) * 0.15,
+        displayZoom: false,
+        lastMove: null,
+        linePath: [],
       }
     },
-    back: function() {
-      window.history.back()
-    },
-    panToCenter: function($event) {
-      $event.stopPropagation()
-      this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
-      this.chart.setAutoFocus(true)
-    },
-    zoomIn: function($event) {
-      $event.stopPropagation()
-      this.chart.zoomIn()
-    },
-    zoomOut: function($event) {
-      $event.stopPropagation()
-      this.chart.zoomOut()
-    },
-    getDistance(lat1, lon1, lat2, lon2, unit = 'N') {
-      var radlat1 = Math.PI * lat1 / 180
-      var radlat2 = Math.PI * lat2 / 180
-      var theta = lon1 - lon2
-      var radtheta = Math.PI * theta / 180
-      var dist =
-        Math.sin(radlat1) * Math.sin(radlat2) +
-        Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
-      dist = Math.acos(dist)
-      dist = dist * 180 / Math.PI
-      dist = dist * 60 * 1.1515
-      if (unit === 'K') {
-        dist = dist * 1.609344
+    watch: {
+      knots: function() {
+        this.save()
       }
-      if (unit === 'N') {
-        dist = dist * 0.8684
-      }
-      return dist
     },
-  },
-}
+    methods: {
+      save() {
+        const routesItem = localStorage.getItem('routes')
+        const routes = routesItem ? JSON.parse(routesItem) : {}
+        routes[this.id] = {
+          knots: this.knots,
+          linePath: this.linePath,
+          name: this.name,
+          totalDistance: this.totalDistance,
+          totalTime: this.totalTime,
+          id: this.id,
+        }
+        localStorage.setItem('routes', JSON.stringify(routes))
+      },
+      onClick(e) {
+        if (!this.lastMove ||
+          Math.abs(this.lastMove.getTime() - new Date().getTime()) > 400
+        ) {
+          this.chart.setWaypoint(e.latLng)
+        }
+      },
+      back: function() {
+        window.history.back()
+      },
+      panToCenter: function($event) {
+        $event.stopPropagation()
+        this.chart.panTo(this.currentCoordinate.lat, this.currentCoordinate.lng)
+        this.chart.setAutoFocus(true)
+      },
+      zoomIn: function($event) {
+        $event.stopPropagation()
+        this.chart.zoomIn()
+      },
+      zoomOut: function($event) {
+        $event.stopPropagation()
+        this.chart.zoomOut()
+      },
+      getDistance(lat1, lon1, lat2, lon2, unit = 'N') {
+        var radlat1 = Math.PI * lat1 / 180
+        var radlat2 = Math.PI * lat2 / 180
+        var theta = lon1 - lon2
+        var radtheta = Math.PI * theta / 180
+        var dist =
+          Math.sin(radlat1) * Math.sin(radlat2) +
+          Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+        dist = Math.acos(dist)
+        dist = dist * 180 / Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit === 'K') {
+          dist = dist * 1.609344
+        }
+        if (unit === 'N') {
+          dist = dist * 0.8684
+        }
+        return dist
+      },
+    },
+  }
 </script>
 
 <style scoped>
-.create-route {
-  z-index: 5000;
-}
-
-.chart-map {
-  width: 100%;
-  height: 500px;
-}
+  .create-route {
+    z-index: 5000;
+  }
+  
+  .chart-map {
+    width: 100%;
+    height: 500px;
+  }
 </style>
