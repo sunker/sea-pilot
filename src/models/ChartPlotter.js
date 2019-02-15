@@ -102,6 +102,7 @@ export default class Chart {
 
   loadRoute (linePath) {
     linePath.forEach(l => this.setWaypoint(new eniro.maps.LatLng(l.y, l.x)))
+    // this.map.fitBounds() // fix!
   }
 
   setAutoFocus (focus) {

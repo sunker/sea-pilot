@@ -2774,3 +2774,4 @@ eniro.maps.Map.prototype.$destroy = function() {
 eniro.maps.Map.prototype.$postinitialize = function() {
     eniro.$IMPLEMENT.apply(this, arguments)
 };
+

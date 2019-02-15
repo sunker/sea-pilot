@@ -24,7 +24,7 @@
             <v-flex xs4>
               <dl>
                 <dt>NM</dt>
-                <dd>{{Number(currentCoordinate.totalDistance ? currentCoordinate.totalDistance : 0).toFixed(2)}}</dd>
+                <dd>{{Number(totalDistance ? totalDistance : 0).toFixed(2)}}</dd>
               </dl>
             </v-flex>
   
@@ -67,7 +67,7 @@
             <v-flex xs12>
               <dl>
                 <dt>NM</dt>
-                <dd>{{Number(currentCoordinate.totalDistance).toFixed(2)}}</dd>
+                <dd>{{Number(totalDistance).toFixed(2)}}</dd>
               </dl>
             </v-flex>
           </v-layout>
@@ -115,7 +115,7 @@
     },
     computed: {
       ...mapState(['journey', 'currentCoordinate']),
-      ...mapGetters(['bearing', 'compassDirection', 'speed', 'averageGpsdSpeed']),
+      ...mapGetters(['bearing', 'compassDirection', 'speed', 'averageGpsdSpeed', 'totalDistance']),
       mapHeight() {
         return this.height * (this.journey.splitView ? 0.6 : 0.8)
       },
